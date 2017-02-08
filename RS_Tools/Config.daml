@@ -1,0 +1,50 @@
+﻿<ArcGIS defaultAssembly="RS_Tools.dll" defaultNamespace="RS_Tools" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+  <AddInInfo id="{a6619a3f-55f4-4c80-b63b-fdfa7503b505}" version="1.0" desktopVersion="1.4.7198">
+    <Name>RS_Tools</Name>
+    <Description>Tools Used by Remote Sensing to Enhance Team Productivity</Description>
+    <Image>Images\AddinDesktop32.png</Image>
+    <Author>ChrisStayte</Author>
+    <Company>Woolpert</Company>
+    <Date>2/4/2017 10:49:35 AM, 2017</Date>
+    <Subject>Framework</Subject>
+    <!-- Note subject can be one or more of these topics:
+                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+  </AddInInfo>
+  <modules>
+    <insertModule id="RS_Tools_Module" className="MainModule" autoLoad="false" caption="MainModule">
+      <!-- uncomment to have the control hosted on a separate tab-->
+      <tabs>
+        <tab id="Remote_Sensing" caption="Remote Sensing" keytip="Remote Sensing">
+          <group refID="RS_Tools_Group_Inspecting" />
+        </tab>
+      </tabs>
+      <groups>
+        <!-- comment this out if you have no controls on the Addin tab to avoid
+              an empty group-->
+        <group id="RS_Tools_Group_Inspecting" caption="Inspecting" appearsOnAddInTab="false" keytip="Inspecting">
+          <!-- host controls within groups -->
+          <button refID="RS_Tools_Tools_Inspector_InspectorSettings_ShowButton" size="large" />
+          <button refID="RS_Tools_Tools_Inspector_Buttons_OKNext" size="large" separator="true" />
+          <button refID="RS_Tools_Tools_Inspector_Buttons_OKStay" size="large" />
+        </group>
+      </groups>
+      <controls>
+        <!-- add your controls here -->
+        <button id="RS_Tools_Tools_Inspector_InspectorSettings_ShowButton" caption="Inspector Settings" className="RS_Tools.Tools.Inspector.InspectorSettings_ShowButton" loadOnClick="true" smallImage="Images\GenericButtonPurple16.png" largeImage="Images\GenericButtonPurple32.png">
+          <tooltip heading="Show Inspector Settings">Show Inspector Settings<disabledText /></tooltip>
+        </button>
+        <button id="RS_Tools_Tools_Inspector_Buttons_OKNext" caption="OK, Next" className="RS_Tools.Tools.Inspector.Buttons.OKNext" loadOnClick="true" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png">
+          <tooltip heading="Next Inspection Zoomed To Extent">Next Inspection Zoomed To Extent<disabledText /></tooltip>
+        </button>
+        <button id="RS_Tools_Tools_Inspector_Buttons_OKStay" caption="OKStay" className="RS_Tools.Tools.Inspector.Buttons.OKStay" loadOnClick="true" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png">
+          <tooltip heading="Tooltip Heading">Tooltip text<disabledText /></tooltip>
+        </button>
+      </controls>
+      <dockPanes>
+        <dockPane id="RS_Tools_Tools_Inspector_InspectorSettings" caption="Inspector Settings" className="RS_Tools.Tools.Inspector.InspectorSettingsViewModel" dock="group" dockWith="esri_core_contentsDockPane">
+          <content className="RS_Tools.Tools.Tracker.TrackerView" />
+        </dockPane>
+      </dockPanes>
+    </insertModule>
+  </modules>
+</ArcGIS>
