@@ -66,7 +66,7 @@ namespace RS_Tools.Tools.Inspector
         /// <summary>
         /// Text shown near the top of the DockPane.
         /// </summary>
-        private string _heading = "Tracker";
+        private string _heading = "Inspector";
         public string Heading
         {
             get { return _heading; }
@@ -279,22 +279,26 @@ namespace RS_Tools.Tools.Inspector
 
         }
 
-        public void Update(int status, Layer featureLayer, string editName)
+        public void Update(int status, FeatureLayer featureLayer, string editName)
         {
-            QueuedTask.Run(async () => {
+            QueuedTask.Run(() => {
                 try
                 {
                     var basicfeaturelayer = _selectedLayer as BasicFeatureLayer;
+                    //var basicfeaturelayer = MapView.Active.Map.FindLayers("TestPolygon").First() as BasicFeatureLayer;
                     var selection = basicfeaturelayer.GetSelection();
                     var oidset = selection.GetObjectIDs();
-                    
 
+                    Debug.WriteLine("Selected Features: " + oidset.Count);
 
-                    var insp = new ArcGIS.Desktop.Editing.Attributes.Inspector(true);
+                    var insp = new ArcGIS.Desktop.Editing.Attributes.Inspector();
                     insp.Load(basicfeaturelayer, oidset);
                     insp[InpsectorFieldName] = 1;
-                    await insp.ApplyAsync();
-                    
+
+                    var op = new EditOperation();
+                    op.Name = editName;
+                    op.Modify(insp);
+                    op.Execute();
 
                     basicfeaturelayer.ClearSelection();
                 } catch (Exception ex)
