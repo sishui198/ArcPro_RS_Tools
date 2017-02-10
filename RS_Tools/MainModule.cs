@@ -38,5 +38,24 @@ namespace RS_Tools
 
         #endregion Overrides
 
+        #region Static Methods
+
+        public static void SetState(string stateID, bool state)
+        {
+            if (FrameworkApplication.State.Contains(stateID))
+            {
+                if (!state)
+                {
+                    FrameworkApplication.State.Deactivate(stateID);
+                } 
+            } else
+            {
+                FrameworkApplication.State.Activate(stateID);
+            }
+            
+        }
+
+        #endregion
+
     }
 }

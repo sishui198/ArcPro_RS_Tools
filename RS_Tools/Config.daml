@@ -11,7 +11,7 @@
                     Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
   </AddInInfo>
   <modules>
-    <insertModule id="RS_Tools_Module" className="MainModule" autoLoad="false" caption="MainModule">
+    <insertModule id="RS_Tools_Module" className="MainModule" autoLoad="true" caption="MainModule">
       <!-- uncomment to have the control hosted on a separate tab-->
       <tabs>
         <tab id="Remote_Sensing" caption="Remote Sensing" keytip="Remote Sensing">
@@ -24,19 +24,27 @@
         <group id="RS_Tools_Group_Inspecting" caption="Inspecting" appearsOnAddInTab="false" keytip="Inspecting">
           <!-- host controls within groups -->
           <button refID="RS_Tools_Tools_Inspector_InspectorSettings_ShowButton" size="large" />
-          <button refID="RS_Tools_Tools_Inspector_Buttons_OKNext" size="large" separator="true" />
-          <button refID="RS_Tools_Tools_Inspector_Buttons_OKStay" size="large" />
+          <button refID="RS_Tools_Tools_Inspector_Buttons_OKNext" size="middle" separator="true" />
+          <button refID="RS_Tools_Tools_Inspector_Buttons_OKStay" size="middle" />
+          <button refID="RS_Tools_Tools_Inspector_Buttons_OKScale" size="middle" />
+          <button refID="RS_Tools_Tools_Inspector_Buttons_DeleteNext" size="middle" />
         </group>
       </groups>
       <controls>
         <!-- add your controls here -->
-        <button id="RS_Tools_Tools_Inspector_InspectorSettings_ShowButton" caption="Inspector Settings" className="RS_Tools.Tools.Inspector.InspectorSettings_ShowButton" loadOnClick="true" smallImage="Images\GenericButtonPurple16.png" largeImage="Images\GenericButtonPurple32.png">
+        <button id="RS_Tools_Tools_Inspector_InspectorSettings_ShowButton" caption="Inspector Settings" className="RS_Tools.Tools.Inspector.InspectorSettings_ShowButton" loadOnClick="true" smallImage="Images\Inspector16.png" largeImage="Images\Inspector32.png">
           <tooltip heading="Show Inspector Settings">Show Inspector Settings<disabledText /></tooltip>
         </button>
-        <button id="RS_Tools_Tools_Inspector_Buttons_OKNext" caption="OK, Next" className="RS_Tools.Tools.Inspector.Buttons.OKNext" loadOnClick="true" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png">
+        <button id="RS_Tools_Tools_Inspector_Buttons_OKNext" caption="OK, Next" className="RS_Tools.Tools.Inspector.Buttons.OKNext" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png">
           <tooltip heading="Next Inspection Zoomed To Extent">Next Inspection Zoomed To Extent<disabledText /></tooltip>
         </button>
-        <button id="RS_Tools_Tools_Inspector_Buttons_OKStay" caption="OKStay" className="RS_Tools.Tools.Inspector.Buttons.OKStay" loadOnClick="true" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png">
+        <button id="RS_Tools_Tools_Inspector_Buttons_OKStay" caption="OK, Stay" className="RS_Tools.Tools.Inspector.Buttons.OKStay" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png">
+          <tooltip heading="Tooltip Heading">Tooltip text<disabledText /></tooltip>
+        </button>
+        <button id="RS_Tools_Tools_Inspector_Buttons_OKScale" caption="OK, Scale" className="RS_Tools.Tools.Inspector.Buttons.OKScale" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png">
+          <tooltip heading="Tooltip Heading">Tooltip text<disabledText /></tooltip>
+        </button>
+        <button id="RS_Tools_Tools_Inspector_Buttons_DeleteNext" caption="Delete Next" className="RS_Tools.Tools.Inspector.Buttons.DeleteNext" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png">
           <tooltip heading="Tooltip Heading">Tooltip text<disabledText /></tooltip>
         </button>
       </controls>
@@ -47,4 +55,9 @@
       </dockPanes>
     </insertModule>
   </modules>
+  <conditions>
+    <insertCondition id="inspector_update_condition" caption="Okay Next Condition">
+      <state id="inspector_update_state" />
+    </insertCondition>
+  </conditions>
 </ArcGIS>

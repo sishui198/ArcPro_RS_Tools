@@ -99,7 +99,9 @@
   <ItemGroup>
     <Compile Include="MainModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\Inspector\Buttons\DeleteNext.cs" />
     <Compile Include="Tools\Inspector\Buttons\OKNext.cs" />
+    <Compile Include="Tools\Inspector\Buttons\OKScale.cs" />
     <Compile Include="Tools\Inspector\Buttons\OKStay.cs" />
     <Compile Include="Tools\Inspector\InspectorSettings.xaml.cs">
       <DependentUpon>InspectorSettings.xaml</DependentUpon>
@@ -136,6 +138,10 @@
   </ItemGroup>
   <ItemGroup>
     <AddInContent Include="DarkImages\GenericButtonBlue32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AddInContent Include="Images\Inspector16.png" />
+    <AddInContent Include="Images\Inspector32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--

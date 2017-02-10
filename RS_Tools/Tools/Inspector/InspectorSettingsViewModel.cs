@@ -29,7 +29,7 @@ namespace RS_Tools.Tools.Inspector
         private readonly ObservableCollection<FeatureLayer> _layers = new ObservableCollection<FeatureLayer>();
         private Map _selectedMap = null;
         private FeatureLayer _selectedLayer = null;
-        private static string InpsectorFieldName = "RSINS";
+        private static string InpsectorFieldName = "RSI";
 
         /// <summary>
         /// used to lock collections for use by multiple threads
@@ -117,6 +117,13 @@ namespace RS_Tools.Tools.Inspector
                 {
                     SetProperty(ref _selectedLayer, value, () => SelectedLayer);
                 });
+                if (_selectedLayer == null)
+                {
+                    MainModule.SetState("inspector_update_state", false);
+                } else
+                {
+                    MainModule.SetState("inspector_update_state", true);
+                }
                 
             }
         }
@@ -137,7 +144,6 @@ namespace RS_Tools.Tools.Inspector
         {
             PopulateMapLayers();
         }
-
 
         #endregion
 
@@ -171,7 +177,6 @@ namespace RS_Tools.Tools.Inspector
                 MessageBox.Show("No Maps Exist");
             }
         }
-
 
         private void PopulateMapLayers()
         {
@@ -227,30 +232,40 @@ namespace RS_Tools.Tools.Inspector
             });
 
 
-            var match = fields.FirstOrDefault(field => field.Name.ToLower().Contains(InpsectorFieldName.ToLower()) && (field.FieldType == FieldType.SmallInteger || field.FieldType == FieldType.Integer));
+            var match = fields.FirstOrDefault(field => field.Name.ToLower().Contains(InpsectorFieldName.ToLower()));
             if (match == null)
             {
                 MessageBox.Show("Add field named '" + InpsectorFieldName + "' to '" + _selectedLayer.Name + "' layer of type Integer");
                 return false;
             }
+            match = fields.FirstOrDefault(field => (field.FieldType == FieldType.SmallInteger || field.FieldType == FieldType.Integer));
+            if (match == null)
+            {
+                MessageBox.Show("Add field named '" + InpsectorFieldName + "' to '" + _selectedLayer.Name + "' layer of type Integer");
+                return false;
+            }
+
+
             return true;
         }
 
-        private async Task<bool> FeaturesSelected(bool showMessage)
+        private bool FeaturesSelected(bool showMessage)
         {
             int featurecount = 0;
-            await QueuedTask.Run(() =>
+            return QueuedTask.Run(() =>
             {
                 // Get the number of selected features
                 featurecount = (_selectedLayer as BasicFeatureLayer).GetSelection().GetCount();
-            });
-
-            if (featurecount <= 0)
-            {
-                if (showMessage) MessageBox.Show("Select At Least One Feature from '" + _selectedLayer.Name + "' layer");
-                return false;
-            }
-            return true;
+                if (featurecount <= 0)
+                {
+                    if (showMessage) MessageBox.Show("Select At Least One Feature from '" + _selectedLayer.Name + "' layer");
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }).Result;
         }
              
         public async void OkNext()
@@ -261,12 +276,28 @@ namespace RS_Tools.Tools.Inspector
 
             if (!proceed) return;
 
-            if (await FeaturesSelected(false))
+            if (FeaturesSelected(false))
             {
-                Update(1, _selectedLayer, "Ok, Next");
+                Update(1,  "Ok, Next");
             }
 
-            ZoomToNext(_selectedLayer);            
+            ZoomToNext(_selectedLayer, false);            
+        }
+
+        public async void OkScale()
+        {
+            bool proceed = false;
+
+            proceed = await PrepStatus();
+
+            if (!proceed) return;
+
+            if (FeaturesSelected(false))
+            {
+                Update(1, "Ok, Scale");
+            }
+
+            ZoomToNext(_selectedLayer, true);
         }
 
         public async void OkStay()
@@ -275,21 +306,58 @@ namespace RS_Tools.Tools.Inspector
 
             if (!proceed) return;
             
-            if (await FeaturesSelected(true)) Update(1, _selectedLayer, "Okay Stay");
+            if (FeaturesSelected(true)) Update(1,  "Okay Stay");
 
         }
 
-        public void Update(int status, FeatureLayer featureLayer, string editName)
+        public async void Delete()
+        {
+            bool proceed = false;
+
+            proceed = await PrepStatus();
+
+            if (!proceed) return;
+
+            if (!FeaturesSelected(false))
+            {
+                return;
+            }
+
+            await QueuedTask.Run(() =>
+            {
+                try
+                {
+                    var basicfeaturelayer = _selectedLayer as BasicFeatureLayer;
+                    var selection = basicfeaturelayer.GetSelection();
+                    var oidset = selection.GetObjectIDs();
+
+                    var op = new EditOperation();
+                    op.Name = "Delete Next";
+
+                    foreach (var oid in oidset)
+                    {
+                        op.Delete(basicfeaturelayer, oid);
+                    }
+
+                    op.Execute();
+                } catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }); 
+
+
+            ZoomToNext(_selectedLayer, false);
+        }
+
+        public void Update(int status, string editName)
         {
             QueuedTask.Run(() => {
                 try
                 {
                     var basicfeaturelayer = _selectedLayer as BasicFeatureLayer;
-                    //var basicfeaturelayer = MapView.Active.Map.FindLayers("TestPolygon").First() as BasicFeatureLayer;
                     var selection = basicfeaturelayer.GetSelection();
                     var oidset = selection.GetObjectIDs();
-
-                    Debug.WriteLine("Selected Features: " + oidset.Count);
 
                     var insp = new ArcGIS.Desktop.Editing.Attributes.Inspector();
                     insp.Load(basicfeaturelayer, oidset);
@@ -309,7 +377,7 @@ namespace RS_Tools.Tools.Inspector
             });
         }
 
-        public async void ZoomToNext(Layer featureLayer)
+        public async void ZoomToNext(Layer featureLayer, bool KeepScale)
         {
             var basicfeaturelayer = _selectedLayer as BasicFeatureLayer;
 
@@ -317,11 +385,10 @@ namespace RS_Tools.Tools.Inspector
             queryfilter.WhereClause = InpsectorFieldName + " IS NULL";
             try
             {
-                await QueuedTask.Run(async () =>
+                await QueuedTask.Run(() =>
                 {
                     basicfeaturelayer.ClearSelection();
                     FeatureClass featureclass = Utilities.Utilities.LayerToFeatureClass(_selectedLayer);
-
                     using (RowCursor cursor = featureclass.Search(queryfilter, false))
                     {
                         while (cursor.MoveNext())
@@ -329,10 +396,14 @@ namespace RS_Tools.Tools.Inspector
                             using (Feature feature = (Feature)cursor.Current)
                             {
                                 var shape = feature.GetShape() as Geometry;
+                                Envelope envelope = shape.Extent;
+                                envelope.Expand(5, 5, true);
                                 
-                                await MapView.Active.ZoomToAsync(shape.Extent, null, false);
-                                
-                                MapView.Active.SelectFeatures(shape);
+                                if (!KeepScale) MapView.Active.ZoomTo(envelope, null, false);
+                                else MapView.Active.PanTo(shape); // Okay, Scale implementation
+
+                                queryfilter.WhereClause = "ObjectID = " + feature.GetObjectID().ToString();
+                                _selectedLayer.Select(queryfilter, SelectionCombinationMethod.New);
 
                                 return;
 
