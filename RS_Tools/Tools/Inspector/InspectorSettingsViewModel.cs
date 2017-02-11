@@ -180,10 +180,6 @@ namespace RS_Tools.Tools.Inspector
 
         private void PopulateMapLayers()
         {
-            if (_selectedLayer != null)
-            {
-            }
-
             _layers.Clear();
             if (_selectedMap != null) {
                 QueuedTask.Run(() =>

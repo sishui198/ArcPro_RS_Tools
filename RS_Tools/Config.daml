@@ -32,20 +32,20 @@
       </groups>
       <controls>
         <!-- add your controls here -->
-        <button id="RS_Tools_Tools_Inspector_InspectorSettings_ShowButton" caption="Inspector Settings" className="RS_Tools.Tools.Inspector.InspectorSettings_ShowButton" loadOnClick="true" smallImage="Images\Inspector16.png" largeImage="Images\Inspector32.png">
+        <button id="RS_Tools_Tools_Inspector_InspectorSettings_ShowButton" keytip="Inspector Settings" caption="Inspector Settings" className="RS_Tools.Tools.Inspector.InspectorSettings_ShowButton" loadOnClick="true" smallImage="Images\Inspector16.png" largeImage="Images\Inspector32.png">
           <tooltip heading="Show Inspector Settings">Show Inspector Settings<disabledText /></tooltip>
         </button>
-        <button id="RS_Tools_Tools_Inspector_Buttons_OKNext" caption="OK, Next" className="RS_Tools.Tools.Inspector.Buttons.OKNext" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png">
-          <tooltip heading="Next Inspection Zoomed To Extent">Next Inspection Zoomed To Extent<disabledText /></tooltip>
+        <button id="RS_Tools_Tools_Inspector_Buttons_OKNext" keytip="Okay, Next" caption="OK, Next" className="RS_Tools.Tools.Inspector.Buttons.OKNext" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png">
+          <tooltip heading="Okay, Next">Marks Current Selection as Inspected and Zooms/Selects to next Un-Inspected feature<disabledText />"Update Inspector Settings"</tooltip>
         </button>
-        <button id="RS_Tools_Tools_Inspector_Buttons_OKStay" caption="OK, Stay" className="RS_Tools.Tools.Inspector.Buttons.OKStay" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png">
-          <tooltip heading="Tooltip Heading">Tooltip text<disabledText /></tooltip>
+        <button id="RS_Tools_Tools_Inspector_Buttons_OKStay" keytip="Okay, Stay" caption="OK, Stay" className="RS_Tools.Tools.Inspector.Buttons.OKStay" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png">
+          <tooltip heading="Okay, Stay">Marks Current Selection As Inspected<disabledText />"Update Inspector Settings"</tooltip>
         </button>
-        <button id="RS_Tools_Tools_Inspector_Buttons_OKScale" caption="OK, Scale" className="RS_Tools.Tools.Inspector.Buttons.OKScale" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png">
-          <tooltip heading="Tooltip Heading">Tooltip text<disabledText /></tooltip>
+        <button id="RS_Tools_Tools_Inspector_Buttons_OKScale" keytip="Ok, Scale" caption="OK, Scale" className="RS_Tools.Tools.Inspector.Buttons.OKScale" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png">
+          <tooltip heading="Okay, Scale">Marks Current Selection as Inspected and Pans/Selects to the next Un-Inspected feature<disabledText />"Update Inspector Settings"</tooltip>
         </button>
-        <button id="RS_Tools_Tools_Inspector_Buttons_DeleteNext" caption="Delete Next" className="RS_Tools.Tools.Inspector.Buttons.DeleteNext" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png">
-          <tooltip heading="Tooltip Heading">Tooltip text<disabledText /></tooltip>
+        <button id="RS_Tools_Tools_Inspector_Buttons_DeleteNext" keytip="Delete Next" caption="Delete Next" className="RS_Tools.Tools.Inspector.Buttons.DeleteNext" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\GenericButtonBlue16.png" largeImage="Images\GenericButtonBlue32.png">
+          <tooltip heading="Delete Next">Deletes Current Selection and Zooms/Selects to next Un-Inspected feature<disabledText />"Update Inspector Settings"</tooltip>
         </button>
       </controls>
       <dockPanes>
