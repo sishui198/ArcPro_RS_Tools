@@ -140,8 +140,24 @@
     <AddInContent Include="DarkImages\GenericButtonBlue32.png" />
   </ItemGroup>
   <ItemGroup>
-    <AddInContent Include="Images\Inspector16.png" />
-    <AddInContent Include="Images\Inspector32.png" />
+    <AddInContent Include="Images\Inspector_16.png" />
+    <AddInContent Include="Images\Inspector_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AddInContent Include="Images\okay_next_16.png" />
+    <AddInContent Include="Images\okay_next_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AddInContent Include="Images\okay_scale_16.png" />
+    <AddInContent Include="Images\okay_scale_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AddInContent Include="Images\delete_next_16.png" />
+    <AddInContent Include="Images\delete_next_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AddInContent Include="Images\okay_stay_16.png" />
+    <AddInContent Include="Images\okay_stay_32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--
