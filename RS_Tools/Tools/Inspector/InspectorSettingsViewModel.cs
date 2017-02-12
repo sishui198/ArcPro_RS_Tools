@@ -254,7 +254,7 @@ namespace RS_Tools.Tools.Inspector
                 featurecount = (_selectedLayer as BasicFeatureLayer).GetSelection().GetCount();
                 if (featurecount <= 0)
                 {
-                    if (showMessage) MessageBox.Show("Select At Least One Feature from '" + _selectedLayer.Name + "' layer");
+                    if (showMessage) MessageBox.Show("Select At Least One Feature from '" + _selectedLayer.Name + "' layer"); 
                     return false;
                 }
                 else

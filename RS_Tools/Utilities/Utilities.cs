@@ -101,9 +101,11 @@ namespace RS_Tools.Utilities
             if (layer is FeatureLayer)
             {
                 Table table = (layer as FeatureLayer).GetTable();
-                if (table is FeatureClass) return table as FeatureClass;                }
+                if (table is FeatureClass) return table as FeatureClass;
+            }
             return null;
         }
+
 
     }
 }

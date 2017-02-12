@@ -16,6 +16,7 @@
       <tabs>
         <tab id="Remote_Sensing" caption="Remote Sensing" keytip="Remote Sensing">
           <group refID="RS_Tools_Group_Inspecting" />
+          <group refID="RS_Tools_Group_DomainAppointer" />
         </tab>
       </tabs>
       <groups>
@@ -29,6 +30,10 @@
           <button refID="RS_Tools_Tools_Inspector_Buttons_OKScale" size="middle" />
           <button refID="RS_Tools_Tools_Inspector_Buttons_DeleteNext" size="middle" />
         </group>
+        <group id="RS_Tools_Group_DomainAppointer" caption="Domain Appointer" appearsOnAddInTab="false" keytip="DomainAppointer">
+          <button refID="RS_Tools_Tools_DomainAppointer_DomainAppointerSettings_ShowButton" size="large" />
+          <button refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain00" size="small" separator="true"/>
+        </group>
       </groups>
       <controls>
         <!-- add your controls here -->
@@ -38,26 +43,46 @@
         <button id="RS_Tools_Tools_Inspector_Buttons_OKNext" keytip="Okay, Next" caption="OK, Next" className="RS_Tools.Tools.Inspector.Buttons.OKNext" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\okay_next_16.png" largeImage="Images\okay_next_32.png">
           <tooltip heading="Okay, Next">Marks Current Selection as Inspected and Zooms/Selects to next Un-Inspected feature<disabledText />"Update Inspector Settings"</tooltip>
         </button>
-        <button id="RS_Tools_Tools_Inspector_Buttons_OKStay" keytip="Okay, Stay" caption="OK, Stay" className="RS_Tools.Tools.Inspector.Buttons.OKStay" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\okay_scale_16.png" largeImage="Images\okay_scale_32.png">
+        <button id="RS_Tools_Tools_Inspector_Buttons_OKStay" keytip="Okay, Stay" caption="OK, Stay" className="RS_Tools.Tools.Inspector.Buttons.OKStay" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\okay_stay_16.png" largeImage="Images\okay_stay_32.png">
           <tooltip heading="Okay, Stay">Marks Current Selection As Inspected<disabledText />"Update Inspector Settings"</tooltip>
         </button>
-        <button id="RS_Tools_Tools_Inspector_Buttons_OKScale" keytip="Ok, Scale" caption="OK, Scale" className="RS_Tools.Tools.Inspector.Buttons.OKScale" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\okay_stay_16.png" largeImage="Images\okay_stay_32.png">
+        <button id="RS_Tools_Tools_Inspector_Buttons_OKScale" keytip="Ok, Scale" caption="OK, Scale" className="RS_Tools.Tools.Inspector.Buttons.OKScale" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\okay_scale_16.png" largeImage="Images\okay_scale_32.png">
           <tooltip heading="Okay, Scale">Marks Current Selection as Inspected and Pans/Selects to the next Un-Inspected feature<disabledText />"Update Inspector Settings"</tooltip>
         </button>
         <button id="RS_Tools_Tools_Inspector_Buttons_DeleteNext" keytip="Delete Next" caption="Delete Next" className="RS_Tools.Tools.Inspector.Buttons.DeleteNext" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\delete_next_16.png" largeImage="Images\delete_next_32.png">
           <tooltip heading="Delete Next">Deletes Current Selection and Zooms/Selects to next Un-Inspected feature<disabledText />"Update Inspector Settings"</tooltip>
+        </button>
+        <button id="RS_Tools_Tools_DomainAppointer_DomainAppointerSettings_ShowButton" keytip="Domain Appointer Settings" caption="Domain Appointer Settings" className="RS_Tools.Tools.DomainAppointer.DomainAppointerSettings_ShowButton" loadOnClick="true" smallImage="Images\GenericButtonPurple16.png" largeImage="Images\GenericButtonPurple32.png">
+          <tooltip heading="Show Dockpane">Show Domain Appointer Settings<disabledText /></tooltip>
+        </button>
+        <button id="RS_Tools_Tools_DomainAppointer_Buttons_Domain00" keytip="Assign Domain 0" caption="Assign Domain 0" className="RS_Tools.Tools.DomainAppointer.Buttons.Domain00" loadOnClick="true" smallImage="Images\assign_domain_0_16.png" largeImage="Images\assign_domain_0_32.png">
+          <tooltip heading="0">Assign Domain 0<disabledText /></tooltip>
         </button>
       </controls>
       <dockPanes>
         <dockPane id="RS_Tools_Tools_Inspector_InspectorSettings" caption="Inspector Settings" className="RS_Tools.Tools.Inspector.InspectorSettingsViewModel" dock="group" dockWith="esri_core_contentsDockPane">
           <content className="RS_Tools.Tools.Tracker.TrackerView" />
         </dockPane>
+        <dockPane id="RS_Tools_Tools_DomainAppointer_DomainAppointerSettings" caption="DomainAppointerSettings" className="RS_Tools.Tools.DomainAppointer.DomainAppointerSettingsViewModel" dock="group" dockWith="esri_core_contentsDockPane">
+          <content className="RS_Tools.Tools.DomainAppointer.DomainAppointerSettingsView" />
+        </dockPane>
       </dockPanes>
     </insertModule>
   </modules>
   <conditions>
-    <insertCondition id="inspector_update_condition" caption="Okay Next Condition">
+    <insertCondition id="inspector_update_condition" caption="Inspector Condition">
       <state id="inspector_update_state" />
     </insertCondition>
+    <insertCondition id="domainappointer_update_condition" caption="Domain Appointer Condition">
+      <state id="domainappointer_update_state" />
+    </insertCondition>
   </conditions>
+  <accelerators>
+    <!-- Inspector Accelerators -->
+    <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_OKNext" flags="Ctrl+Shift" key="n"/>
+    <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_OKStay" flags="Ctrl+Shift" key="s"/>
+    
+    <!-- Domain Appointer Accelerators -->
+    
+  </accelerators>
 </ArcGIS>
