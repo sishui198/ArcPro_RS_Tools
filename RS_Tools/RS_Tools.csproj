@@ -173,6 +173,13 @@
     <AddInContent Include="Images\assign_domain_0_16.png" />
     <AddInContent Include="Images\assign_domain_0_32.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AddInContent Include="Images\DomainAppointer\assign_domain_0_16.png" />
+    <AddInContent Include="Images\DomainAppointer\assign_domain_0_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\Inspector\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--
   PackageAction can be:

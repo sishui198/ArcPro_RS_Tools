@@ -55,7 +55,7 @@
         <button id="RS_Tools_Tools_DomainAppointer_DomainAppointerSettings_ShowButton" keytip="Domain Appointer Settings" caption="Domain Appointer Settings" className="RS_Tools.Tools.DomainAppointer.DomainAppointerSettings_ShowButton" loadOnClick="true" smallImage="Images\GenericButtonPurple16.png" largeImage="Images\GenericButtonPurple32.png">
           <tooltip heading="Show Dockpane">Show Domain Appointer Settings<disabledText /></tooltip>
         </button>
-        <button id="RS_Tools_Tools_DomainAppointer_Buttons_Domain00" keytip="Assign Domain 0" caption="Assign Domain 0" className="RS_Tools.Tools.DomainAppointer.Buttons.Domain00" loadOnClick="true" smallImage="Images\assign_domain_0_16.png" largeImage="Images\assign_domain_0_32.png">
+        <button id="RS_Tools_Tools_DomainAppointer_Buttons_Domain00" keytip="Assign Domain 0" caption="Assign Domain 0" className="RS_Tools.Tools.DomainAppointer.Buttons.Domain00" loadOnClick="true" condition="domainappointer_update_condition" smallImage="Images\DomainAppointer\assign_domain_0_16.png" largeImage="Images\DomainAppointer\assign_domain_0_32.png">
           <tooltip heading="0">Assign Domain 0<disabledText /></tooltip>
         </button>
       </controls>

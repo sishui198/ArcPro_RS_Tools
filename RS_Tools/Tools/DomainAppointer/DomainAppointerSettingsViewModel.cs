@@ -17,6 +17,7 @@ using ArcGIS.Core.Data;
 using System.Diagnostics;
 using RS_Tools.Tools.DomainAppointer.Buttons;
 using static RS_Tools.Tools.DomainAppointer.DataService;
+using ArcGIS.Desktop.Editing;
 
 namespace RS_Tools.Tools.DomainAppointer
 {
@@ -132,6 +133,14 @@ namespace RS_Tools.Tools.DomainAppointer
                 {
                     SetProperty(ref _selectedField, value, () => SelectedField);
                 });
+                if (_selectedField == null)
+                {
+                    MainModule.SetState("domainappointer_update_state", false);
+                }
+                else
+                {
+                    MainModule.SetState("domainappointer_update_state", true);
+                }
             }
         }
 
@@ -200,13 +209,13 @@ namespace RS_Tools.Tools.DomainAppointer
             }
         }
 
-        private void PopulateLayerFields()
+        private async void PopulateLayerFields()
         {
             _fields.Clear();
             IEnumerable<Field> fields = null;
             FeatureClass featureclass = null;
 
-            QueuedTask.Run(() =>
+            await QueuedTask.Run(() =>
             {
                 Table table = _selectedLayer.GetTable();
 
@@ -233,11 +242,98 @@ namespace RS_Tools.Tools.DomainAppointer
                     }
                 } 
             });   
+            if (_fields.Count <= 0)
+            {
+                MessageBox.Show("No Valid Fields in '" + _selectedLayer.Name + "'  Feature Layer");
+            }
         }
 
-        internal void ApplyDomain(DomainCode code)
+        private async Task<bool> CheckRequirements()
         {
-            MessageBox.Show(code.ToString());
+            if (_selectedMap == null)
+            {
+                MessageBox.Show("Select A Map In Domain Appointer Settings");
+                return false;
+            }
+
+            if (_selectedLayer == null)
+            {
+                MessageBox.Show("Select A Layer in Domain Appointer Settings");
+                return false;
+            }
+
+            if (_selectedField == null)
+            {
+                MessageBox.Show("Select a Field in Domain Appointer Settings");
+            }
+        
+            bool canEditData = false;
+
+            await QueuedTask.Run(() =>
+            {
+                canEditData = _selectedLayer.CanEditData();
+            });
+
+            if (!canEditData)
+            {
+                MessageBox.Show("Feature Layer '" + _selectedLayer.Name + "' Is not Editable");
+                return false;
+            }
+
+            IEnumerable<Field> fields = null;
+
+            await QueuedTask.Run(() =>
+            {
+                Table table = _selectedLayer.GetTable();
+                if (table is FeatureClass)
+                {
+                    FeatureClass featureclass = table as FeatureClass;
+                    using (FeatureClassDefinition def = featureclass.GetDefinition())
+                    {
+                        fields = def.GetFields();
+                    }
+
+                }
+            });
+
+            var match = fields.FirstOrDefault(field => field.Name.ToLower().Contains(_selectedField.ToLower()));
+            if (match == null)
+            {
+                MessageBox.Show("The field '" + _selectedField + "' is Missing From '" + _selectedLayer.Name + "' Feature Layer");
+                return false;
+            }
+           
+
+            return true;
+        }
+
+        internal async void ApplyDomain(DomainCode code)
+        {
+            if (await CheckRequirements())
+            {
+                await QueuedTask.Run(() =>
+                {
+                    try
+                    {
+                        Selection selection = _selectedLayer.GetSelection();
+                        var oidset = selection.GetObjectIDs();
+
+                        var insp = new ArcGIS.Desktop.Editing.Attributes.Inspector();
+                        insp.Load(_selectedLayer, oidset);
+                        insp[_selectedField] = (int)code;
+
+                        var op = new EditOperation();
+                        op.Name = "Set Domain to " + ((int)code).ToString();
+                        op.Modify(insp);
+                        op.Execute();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
+
+                });
+            }
         }
 
         #endregion
