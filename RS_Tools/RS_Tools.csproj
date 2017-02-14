@@ -150,36 +150,30 @@
     <AddInContent Include="DarkImages\GenericButtonBlue32.png" />
   </ItemGroup>
   <ItemGroup>
-    <AddInContent Include="Images\Inspector_16.png" />
-    <AddInContent Include="Images\Inspector_32.png" />
+    <AddInContent Include="Images\Inspector\Inspector_16.png" />
+    <AddInContent Include="Images\Inspector\Inspector_32.png" />
   </ItemGroup>
   <ItemGroup>
-    <AddInContent Include="Images\okay_next_16.png" />
-    <AddInContent Include="Images\okay_next_32.png" />
+    <AddInContent Include="Images\Inspector\okay_next_16.png" />
+    <AddInContent Include="Images\Inspector\okay_next_32.png" />
   </ItemGroup>
   <ItemGroup>
-    <AddInContent Include="Images\okay_scale_16.png" />
-    <AddInContent Include="Images\okay_scale_32.png" />
+    <AddInContent Include="Images\Inspector\okay_scale_16.png" />
+    <AddInContent Include="Images\Inspector\okay_scale_32.png" />
   </ItemGroup>
   <ItemGroup>
-    <AddInContent Include="Images\delete_next_16.png" />
-    <AddInContent Include="Images\delete_next_32.png" />
+    <AddInContent Include="Images\Inspector\delete_next_16.png" />
+    <AddInContent Include="Images\Inspector\delete_next_32.png" />
   </ItemGroup>
   <ItemGroup>
-    <AddInContent Include="Images\okay_stay_16.png" />
-    <AddInContent Include="Images\okay_stay_32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AddInContent Include="Images\assign_domain_0_16.png" />
-    <AddInContent Include="Images\assign_domain_0_32.png" />
+    <AddInContent Include="Images\Inspector\okay_stay_16.png" />
+    <AddInContent Include="Images\Inspector\okay_stay_32.png" />
   </ItemGroup>
   <ItemGroup>
     <AddInContent Include="Images\DomainAppointer\assign_domain_0_16.png" />
     <AddInContent Include="Images\DomainAppointer\assign_domain_0_32.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\Inspector\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--
   PackageAction can be:

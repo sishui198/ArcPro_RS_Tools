@@ -109,6 +109,7 @@ namespace RS_Tools.Tools.DomainAppointer
                 return _selectedLayer;
             } set
             {
+                _fields.Clear();
                 Utilities.Utilities.RunOnUiThread(() =>
                 {
                     SetProperty(ref _selectedLayer, value, () => SelectedLayer);
@@ -193,7 +194,6 @@ namespace RS_Tools.Tools.DomainAppointer
         private void PopulateMapLayers()
         {
             _layers.Clear();
-            _fields.Clear();
             if (_selectedMap != null)
             {
                 QueuedTask.Run(() =>
