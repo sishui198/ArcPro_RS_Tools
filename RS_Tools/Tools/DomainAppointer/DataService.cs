@@ -19,12 +19,7 @@ namespace RS_Tools.Tools.DomainAppointer
             Code6,
             Code7,
             Code8,
-            Code9,
-            Code10,
-            Code11,
-            Code12,
-            Code13,
-            Code14
+            Code9
         };
 
         public delegate void ApplyDomainDelegate(DomainCode code);

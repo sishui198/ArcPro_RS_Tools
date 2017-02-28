@@ -172,7 +172,7 @@ namespace RS_Tools.Tools.Inspector
                     }
                 });
             }
-            if (_maps.Count < 0)
+            if (_maps.Count <= 0)
             {
                 MessageBox.Show("No Maps Exist");
             }

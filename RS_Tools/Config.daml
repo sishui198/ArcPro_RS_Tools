@@ -29,34 +29,92 @@
           <button refID="RS_Tools_Tools_Inspector_Buttons_OKStay" size="middle" />
           <button refID="RS_Tools_Tools_Inspector_Buttons_OKScale" size="middle" />
           <button refID="RS_Tools_Tools_Inspector_Buttons_DeleteNext" size="middle" />
+          <button refID="RS_Tools_Utilities_Pane1_OpenButton" size="large" />
         </group>
         <group id="RS_Tools_Group_DomainAppointer" caption="Domain Appointer" appearsOnAddInTab="false" keytip="DomainAppointer">
+          <!-- Buttons Are Ordered For Ease Of Use -->
           <button refID="RS_Tools_Tools_DomainAppointer_DomainAppointerSettings_ShowButton" size="large" />
-          <button refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain00" size="small" separator="true"/>
+          <button refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain00" size="small" separator="true" />
+          <button refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain04" size="small" />
+          <button refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain07" size="small" />
+          <button refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain01" size="small" />
+          <button refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain05" size="small" />
+          <button refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain08" size="small" />
+          <button refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain02" size="small" />
+          <button refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain06" size="small" />
+          <button refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain09" size="small" />
+          <button refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain03" size="small" />
         </group>
       </groups>
       <controls>
         <!-- add your controls here -->
         <button id="RS_Tools_Tools_Inspector_InspectorSettings_ShowButton" keytip="Inspector Settings" caption="Inspector Settings" className="RS_Tools.Tools.Inspector.InspectorSettings_ShowButton" loadOnClick="true" smallImage="Images\Inspector\Inspector_16.png" largeImage="Images\Inspector\Inspector_32.png">
-          <tooltip heading="Show Inspector Settings">Show Inspector Settings<disabledText /></tooltip>
+          <tooltip heading="Show Inspector Settings">
+            Show Inspector Settings<disabledText /></tooltip>
         </button>
         <button id="RS_Tools_Tools_Inspector_Buttons_OKNext" keytip="Okay, Next" caption="OK, Next" className="RS_Tools.Tools.Inspector.Buttons.OKNext" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\Inspector\okay_next_16.png" largeImage="Images\Inspector\okay_next_32.png">
-          <tooltip heading="Okay, Next">Marks Current Selection as Inspected and Zooms/Selects to next Un-Inspected feature<disabledText />"Update Inspector Settings"</tooltip>
+          <tooltip heading="Okay, Next">
+            Marks Current Selection as Inspected and Zooms/Selects to next Un-Inspected feature<disabledText />"Update Inspector Settings"
+          </tooltip>
         </button>
         <button id="RS_Tools_Tools_Inspector_Buttons_OKStay" keytip="Okay, Stay" caption="OK, Stay" className="RS_Tools.Tools.Inspector.Buttons.OKStay" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\Inspector\okay_stay_16.png" largeImage="Images\Inspector\okay_stay_32.png">
-          <tooltip heading="Okay, Stay">Marks Current Selection As Inspected<disabledText />"Update Inspector Settings"</tooltip>
+          <tooltip heading="Okay, Stay">
+            Marks Current Selection As Inspected<disabledText />"Update Inspector Settings"
+          </tooltip>
         </button>
         <button id="RS_Tools_Tools_Inspector_Buttons_OKScale" keytip="Ok, Scale" caption="OK, Scale" className="RS_Tools.Tools.Inspector.Buttons.OKScale" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\Inspector\okay_scale_16.png" largeImage="Images\Inspector\okay_scale_32.png">
-          <tooltip heading="Okay, Scale">Marks Current Selection as Inspected and Pans/Selects to the next Un-Inspected feature<disabledText />"Update Inspector Settings"</tooltip>
+          <tooltip heading="Okay, Scale">
+            Marks Current Selection as Inspected and Pans/Selects to the next Un-Inspected feature<disabledText />"Update Inspector Settings"
+          </tooltip>
         </button>
         <button id="RS_Tools_Tools_Inspector_Buttons_DeleteNext" keytip="Delete Next" caption="Delete Next" className="RS_Tools.Tools.Inspector.Buttons.DeleteNext" loadOnClick="true" condition="inspector_update_condition" smallImage="Images\Inspector\delete_next_16.png" largeImage="Images\Inspector\delete_next_32.png">
-          <tooltip heading="Delete Next">Deletes Current Selection and Zooms/Selects to next Un-Inspected feature<disabledText />"Update Inspector Settings"</tooltip>
+          <tooltip heading="Delete Next">
+            Deletes Current Selection and Zooms/Selects to next Un-Inspected feature<disabledText />"Update Inspector Settings"
+          </tooltip>
         </button>
         <button id="RS_Tools_Tools_DomainAppointer_DomainAppointerSettings_ShowButton" keytip="Domain Appointer Settings" caption="Domain Appointer Settings" className="RS_Tools.Tools.DomainAppointer.DomainAppointerSettings_ShowButton" loadOnClick="true" smallImage="Images\GenericButtonPurple16.png" largeImage="Images\GenericButtonPurple32.png">
-          <tooltip heading="Show Dockpane">Show Domain Appointer Settings<disabledText /></tooltip>
+          <tooltip heading="Show Dockpane">
+            Show Domain Appointer Settings<disabledText /></tooltip>
         </button>
         <button id="RS_Tools_Tools_DomainAppointer_Buttons_Domain00" keytip="Assign Domain 0" caption="Assign Domain 0" className="RS_Tools.Tools.DomainAppointer.Buttons.Domain00" loadOnClick="true" condition="domainappointer_update_condition" smallImage="Images\DomainAppointer\assign_domain_0_16.png" largeImage="Images\DomainAppointer\assign_domain_0_32.png">
-          <tooltip heading="0">Assign Domain 0<disabledText /></tooltip>
+          <tooltip heading="0">
+            Assign Domain 0<disabledText /></tooltip>
+        </button>
+        <button id="RS_Tools_Tools_DomainAppointer_Buttons_Domain01" keytip="Assign Domain 1" caption="Assign Domain 1" className="RS_Tools.Tools.DomainAppointer.Buttons.Domain01" loadOnClick="true" condition="domainappointer_update_condition" smallImage="Images\DomainAppointer\assign_domain_1_16.png" largeImage="Images\DomainAppointer\assign_domain_1_32.png">
+          <tooltip heading="1">
+            Assign Domain 1<disabledText /></tooltip>
+        </button>
+        <button id="RS_Tools_Tools_DomainAppointer_Buttons_Domain02" keytip="Assign Domain 2" caption="Assign Domain 2" className="RS_Tools.Tools.DomainAppointer.Buttons.Domain02" loadOnClick="true" condition="domainappointer_update_condition" smallImage="Images\DomainAppointer\assign_domain_2_16.png" largeImage="Images\DomainAppointer\assign_domain_2_32.png">
+          <tooltip heading="2">
+            Assign Domain 2<disabledText /></tooltip>
+        </button>
+        <button id="RS_Tools_Tools_DomainAppointer_Buttons_Domain03" keytip="Assign Domain 3" caption="Assign Domain 3" className="RS_Tools.Tools.DomainAppointer.Buttons.Domain03" loadOnClick="true" condition="domainappointer_update_condition" smallImage="Images\DomainAppointer\assign_domain_3_16.png" largeImage="Images\DomainAppointer\assign_domain_3_32.png">
+          <tooltip heading="3">
+            Assign Domain 3<disabledText /></tooltip>
+        </button>
+        <button id="RS_Tools_Tools_DomainAppointer_Buttons_Domain04" keytip="Assign Domain 4" caption="Assign Domain 4" className="RS_Tools.Tools.DomainAppointer.Buttons.Domain04" loadOnClick="true" condition="domainappointer_update_condition" smallImage="Images\DomainAppointer\assign_domain_4_16.png" largeImage="Images\DomainAppointer\assign_domain_4_32.png">
+          <tooltip heading="4">
+            Assign Domain 4<disabledText /></tooltip>
+        </button>
+        <button id="RS_Tools_Tools_DomainAppointer_Buttons_Domain05" keytip="Assign Domain 5" caption="Assign Domain 5" className="RS_Tools.Tools.DomainAppointer.Buttons.Domain05" loadOnClick="true" condition="domainappointer_update_condition" smallImage="Images\DomainAppointer\assign_domain_5_16.png" largeImage="Images\DomainAppointer\assign_domain_5_32.png">
+          <tooltip heading="5">
+            Assign Domain 5<disabledText /></tooltip>
+        </button>
+        <button id="RS_Tools_Tools_DomainAppointer_Buttons_Domain06" keytip="Assign Domain 6" caption="Assign Domain 6" className="RS_Tools.Tools.DomainAppointer.Buttons.Domain06" loadOnClick="true" condition="domainappointer_update_condition" smallImage="Images\DomainAppointer\assign_domain_6_16.png" largeImage="Images\DomainAppointer\assign_domain_6_32.png">
+          <tooltip heading="6">
+            Assign Domain 6<disabledText /></tooltip>
+        </button>
+        <button id="RS_Tools_Tools_DomainAppointer_Buttons_Domain07" keytip="Assign Domain 7" caption="Assign Domain 7" className="RS_Tools.Tools.DomainAppointer.Buttons.Domain07" loadOnClick="true" condition="domainappointer_update_condition" smallImage="Images\DomainAppointer\assign_domain_7_16.png" largeImage="Images\DomainAppointer\assign_domain_7_32.png">
+          <tooltip heading="7">
+            Assign Domain 7<disabledText /></tooltip>
+        </button>
+        <button id="RS_Tools_Tools_DomainAppointer_Buttons_Domain08" keytip="Assign Domain 8" caption="Assign Domain 8" className="RS_Tools.Tools.DomainAppointer.Buttons.Domain08" loadOnClick="true" condition="domainappointer_update_condition" smallImage="Images\DomainAppointer\assign_domain_8_16.png" largeImage="Images\DomainAppointer\assign_domain_8_32.png">
+          <tooltip heading="8">
+            Assign Domain 8<disabledText /></tooltip>
+        </button>
+        <button id="RS_Tools_Tools_DomainAppointer_Buttons_Domain09" keytip="Assign Domain 9" caption="Assign Domain 9" className="RS_Tools.Tools.DomainAppointer.Buttons.Domain09" loadOnClick="true" condition="domainappointer_update_condition" smallImage="Images\DomainAppointer\assign_domain_9_16.png" largeImage="Images\DomainAppointer\assign_domain_9_32.png">
+          <tooltip heading="9">
+            Assign Domain 9<disabledText /></tooltip>
         </button>
       </controls>
       <dockPanes>
@@ -79,10 +137,20 @@
   </conditions>
   <accelerators>
     <!-- Inspector Accelerators -->
-    <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_OKNext" flags="Ctrl+Shift" key="n"/>
-    <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_OKStay" flags="Ctrl+Shift" key="s"/>
-    
+    <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_OKNext" flags="Ctrl+Shift" key="N" />
+    <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_OKStay" flags="Ctrl+Shift" key="S" />
+    <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_OKScale" flags="Ctrl+Shift" key="X" />
+    <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_DeleteNext" flags="Ctrl+Shift" key="D" />
     <!-- Domain Appointer Accelerators -->
-    
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain00" flags="Alt+Shift" key="0" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain01" flags="Alt+Shift" key="1" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain02" flags="Alt+Shift" key="2" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain03" flags="Alt+Shift" key="3" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain04" flags="Alt+Shift" key="4" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain05" flags="Alt+Shift" key="5" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain06" flags="Alt+Shift" key="6" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain07" flags="Alt+Shift" key="7" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain08" flags="Alt+Shift" key="8" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain09" flags="Alt+Shift" key="9" />
   </accelerators>
 </ArcGIS>

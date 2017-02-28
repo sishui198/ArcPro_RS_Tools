@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 using ArcGIS.Desktop.Framework;
 using ArcGIS.Desktop.Framework.Contracts;
 using static RS_Tools.Tools.DomainAppointer.DataService;
-using MessageBox = ArcGIS.Desktop.Framework.Dialogs.MessageBox;
 
 namespace RS_Tools.Tools.DomainAppointer.Buttons
 {
-    internal class Domain00 : Button
+    internal class Domain09 : Button
     {
         DockPane pane = null;
         protected override void OnClick()
         {
             if (pane == null) pane = FrameworkApplication.DockPaneManager.Find("RS_Tools_Tools_DomainAppointer_DomainAppointerSettings");
-            if (pane != null) (pane as DomainAppointerSettingsViewModel).ApplyDomain(DomainCode.Code0);
+            if (pane != null) (pane as DomainAppointerSettingsViewModel).ApplyDomain(DomainCode.Code9);
         }
     }
 }

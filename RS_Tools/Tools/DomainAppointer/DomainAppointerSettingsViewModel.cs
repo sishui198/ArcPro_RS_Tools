@@ -188,7 +188,7 @@ namespace RS_Tools.Tools.DomainAppointer
                     }
                 });
             }
-            if (_maps.Count < 0) MessageBox.Show("No Maps Exist");
+            if (_maps.Count <= 0) MessageBox.Show("No Maps Exist");
         }
 
         private void PopulateMapLayers()
