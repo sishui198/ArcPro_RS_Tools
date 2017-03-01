@@ -29,7 +29,6 @@
           <button refID="RS_Tools_Tools_Inspector_Buttons_OKStay" size="middle" />
           <button refID="RS_Tools_Tools_Inspector_Buttons_OKScale" size="middle" />
           <button refID="RS_Tools_Tools_Inspector_Buttons_DeleteNext" size="middle" />
-          <button refID="RS_Tools_Utilities_Pane1_OpenButton" size="large" />
         </group>
         <group id="RS_Tools_Group_DomainAppointer" caption="Domain Appointer" appearsOnAddInTab="false" keytip="DomainAppointer">
           <!-- Buttons Are Ordered For Ease Of Use -->

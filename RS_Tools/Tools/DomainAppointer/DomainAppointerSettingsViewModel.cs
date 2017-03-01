@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ArcGIS.Core.Data;
+using ArcGIS.Desktop.Core;
+using ArcGIS.Desktop.Editing;
 using ArcGIS.Desktop.Framework;
 using ArcGIS.Desktop.Framework.Contracts;
-using System.Collections.ObjectModel;
-using ArcGIS.Desktop.Mapping;
-using System.Windows.Data;
-using ArcGIS.Desktop.Mapping.Events;
-using ArcGIS.Desktop.Core;
 using ArcGIS.Desktop.Framework.Threading.Tasks;
-using MessageBox = ArcGIS.Desktop.Framework.Dialogs.MessageBox;
+using ArcGIS.Desktop.Mapping;
+using ArcGIS.Desktop.Mapping.Events;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
-using ArcGIS.Core.Data;
-using System.Diagnostics;
-using RS_Tools.Tools.DomainAppointer.Buttons;
 using static RS_Tools.Tools.DomainAppointer.DataService;
-using ArcGIS.Desktop.Editing;
+using MessageBox = ArcGIS.Desktop.Framework.Dialogs.MessageBox;
 
 namespace RS_Tools.Tools.DomainAppointer
 {
