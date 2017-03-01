@@ -104,8 +104,14 @@ namespace RS_Tools.Tools.Inspector
             }
         }
 
+        /// <summary>
+        /// List of Layers In Currently Selected Map
+        /// </summary>
         public ObservableCollection<FeatureLayer> Layers => _layers;
 
+        /// <summary>
+        /// Users Selected Layer
+        /// </summary>
         public FeatureLayer SelectedLayer
         {
             get
@@ -195,6 +201,10 @@ namespace RS_Tools.Tools.Inspector
             }
         }
 
+        /// <summary>
+        /// Validates Conditions for user before attempting to edit the data
+        /// </summary>
+        /// <returns></returns>
         private async Task<bool> PrepStatus()
         {
             if (_selectedMap == null)
@@ -216,7 +226,7 @@ namespace RS_Tools.Tools.Inspector
             {
                 // Get the fields
                 Table table = (_selectedLayer as FeatureLayer).GetTable();
-
+                
                 if (table is FeatureClass)
                 {
                     featureclass = table as FeatureClass;
@@ -245,6 +255,11 @@ namespace RS_Tools.Tools.Inspector
             return true;
         }
 
+        /// <summary>
+        /// Checks if user has features selected
+        /// </summary>
+        /// <param name="showMessage"></param>
+        /// <returns>Boolean</returns>
         private bool FeaturesSelected(bool showMessage)
         {
             int featurecount = 0;
@@ -263,7 +278,12 @@ namespace RS_Tools.Tools.Inspector
                 }
             }).Result;
         }
-             
+         
+        /// <summary>
+        /// Marks Currently Selected Features as 'OK' if selected then moves onto next feature if applicable.
+        /// Must zoom to next if nothing is selected if applicable. 
+        /// </summary>
+        ///<returns></returns>
         public async void OkNext()
         {
             bool proceed = false;
