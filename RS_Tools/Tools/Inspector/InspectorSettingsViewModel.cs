@@ -260,16 +260,15 @@ namespace RS_Tools.Tools.Inspector
         /// </summary>
         /// <param name="showMessage"></param>
         /// <returns>Boolean</returns>
-        private bool FeaturesSelected(bool showMessage)
+        private bool FeaturesSelected()
         {
             int featurecount = 0;
             return QueuedTask.Run(() =>
             {
-                // Get the number of selected features
-                featurecount = (_selectedLayer as BasicFeatureLayer).GetSelection().GetCount();
+            // Get the number of selected features
+            featurecount = (_selectedLayer as BasicFeatureLayer).GetSelection().GetCount();
                 if (featurecount <= 0)
-                {
-                    if (showMessage) MessageBox.Show("Select At Least One Feature from '" + _selectedLayer.Name + "' layer"); 
+                {   
                     return false;
                 }
                 else
@@ -280,7 +279,7 @@ namespace RS_Tools.Tools.Inspector
         }
          
         /// <summary>
-        /// Marks Currently Selected Features as 'OK' if selected then moves onto next feature if applicable.
+        /// Marks Currently Selected Features as 'OK' if selected then zomms to next feature if applicable.
         /// Must zoom to next if nothing is selected if applicable. 
         /// </summary>
         ///<returns></returns>
@@ -292,14 +291,18 @@ namespace RS_Tools.Tools.Inspector
 
             if (!proceed) return;
 
-            if (FeaturesSelected(false))
+            if (FeaturesSelected())
             {
                 Update(1,  "Ok, Next");
             }
 
-            ZoomToNext(_selectedLayer, false);            
+            GoToNext(_selectedLayer, false);            
         }
-
+        
+        /// <summary>
+        /// Marks Currently Selected Features as 'OK' if selected then pans to next feature if applicable.
+        /// Mustt pan to next if nothing is selected if applicable. 
+        /// </summary>
         public async void OkScale()
         {
             bool proceed = false;
@@ -308,24 +311,37 @@ namespace RS_Tools.Tools.Inspector
 
             if (!proceed) return;
 
-            if (FeaturesSelected(false))
+            if (FeaturesSelected())
             {
-                Update(1, "Ok, Scale");
+                Update(1, "Okay Scale");
             }
 
-            ZoomToNext(_selectedLayer, true);
+            GoToNext(_selectedLayer, true);
         }
 
+        /// <summary>
+        /// Marks Currently Selected Features as 'OK' if any features are selected. Displays a message if not.
+        /// </summary>
         public async void OkStay()
         {
-            bool proceed = await PrepStatus();
+            bool proceed = false;
+
+            proceed = await PrepStatus();
 
             if (!proceed) return;
-            
-            if (FeaturesSelected(true)) Update(1,  "Okay Stay");
+
+            bool featuresSelected = FeaturesSelected();
+
+            MessageBox.Show("Select At Least One Feature");
+
+            if (featuresSelected) Update(1,  "Okay Stay");
 
         }
 
+
+        /// <summary>
+        /// Deletes Currently Selected Features and zooms to next feature if applicable 
+        /// </summary>
         public async void Delete()
         {
             bool proceed = false;
@@ -334,7 +350,7 @@ namespace RS_Tools.Tools.Inspector
 
             if (!proceed) return;
 
-            if (!FeaturesSelected(false))
+            if (!FeaturesSelected())
             {
                 return;
             }
@@ -363,9 +379,14 @@ namespace RS_Tools.Tools.Inspector
             }); 
 
 
-            ZoomToNext(_selectedLayer, false);
+            GoToNext(_selectedLayer, false);
         }
 
+        /// <summary>
+        /// Update the field with a given value (int)
+        /// </summary>
+        /// <param name="status"></param>
+        /// <param name="editName"></param>
         public void Update(int status, string editName)
         {
             QueuedTask.Run(() => {
@@ -393,7 +414,12 @@ namespace RS_Tools.Tools.Inspector
             });
         }
 
-        public async void ZoomToNext(Layer featureLayer, bool KeepScale)
+        /// <summary>
+        /// Goes to the next feature if applicable. A bool can be set if you want to keep the current scale or not
+        /// </summary>
+        /// <param name="featureLayer"></param>
+        /// <param name="KeepScale"></param>
+        public async void GoToNext(Layer featureLayer, bool KeepScale)
         {
             var basicfeaturelayer = _selectedLayer as BasicFeatureLayer;
 
@@ -439,7 +465,6 @@ namespace RS_Tools.Tools.Inspector
 
     }
 
-    
 
     /// <summary>
     /// Button implementation to show the DockPane.
