@@ -122,6 +122,12 @@
       <DependentUpon>InspectorSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tools\Inspector\InspectorSettingsViewModel.cs" />
+    <Compile Include="Tools\RasterTileLoader\DataService.cs" />
+    <Compile Include="Tools\RasterTileLoader\RasterTileLoader.xaml.cs">
+      <DependentUpon>RasterTileLoader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\RasterTileLoader\RasterTileLoaderViewModel.cs" />
+    <Compile Include="Utilities\Converters\EnumBooleanConverter.cs" />
     <Compile Include="Utilities\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Tools\Inspector\InspectorSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tools\RasterTileLoader\RasterTileLoader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -215,6 +225,9 @@
   </ItemGroup>
   <ItemGroup>
     <AddInContent Include="DarkImages\GenericButtonGreen32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RasterTileLoader\Open Folder.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--

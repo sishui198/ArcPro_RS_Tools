@@ -35,7 +35,7 @@ namespace RS_Tools.Tools.DomainAppointer
 
             _getMapsCommand = new RelayCommand(() => GetMaps(), () => true);
 
-            Utilities.Utilities.RunOnUiThread(() =>
+            Utilities.ProUtilities.RunOnUiThread(() =>
             {
                 BindingOperations.EnableCollectionSynchronization(_maps, _lockCollection);
                 BindingOperations.EnableCollectionSynchronization(_layers, _lockCollection);
@@ -84,13 +84,12 @@ namespace RS_Tools.Tools.DomainAppointer
                 return _selectedMap;
             } set
             {
-                _layers.Clear();
-                Utilities.Utilities.RunOnUiThread(() =>
+                Utilities.ProUtilities.RunOnUiThread(() =>
                 {
                     SetProperty(ref _selectedMap, value, () => SelectedMap);
                     if (_selectedMap != null)
                     {
-                        Utilities.Utilities.OpenAndActivateMap(_selectedMap.URI);
+                        Utilities.ProUtilities.OpenAndActivateMap(_selectedMap.URI);
                         PopulateMapLayers();
                     }    
                 });
@@ -106,8 +105,7 @@ namespace RS_Tools.Tools.DomainAppointer
                 return _selectedLayer;
             } set
             {
-                _fields.Clear();
-                Utilities.Utilities.RunOnUiThread(() =>
+                Utilities.ProUtilities.RunOnUiThread(() =>
                 {
                     SetProperty(ref _selectedLayer, value, () => SelectedLayer);
                     if (_selectedLayer != null)
@@ -127,7 +125,7 @@ namespace RS_Tools.Tools.DomainAppointer
                 return _selectedField;
             } set
             {
-                Utilities.Utilities.RunOnUiThread(() =>
+                Utilities.ProUtilities.RunOnUiThread(() =>
                 {
                     SetProperty(ref _selectedField, value, () => SelectedField);
                 });
@@ -148,7 +146,7 @@ namespace RS_Tools.Tools.DomainAppointer
         #endregion
 
         #region Subscribed Events
-
+        
         private void OnLayerRemoved(LayerEventsArgs args)
         {
             PopulateMapLayers();
@@ -171,6 +169,9 @@ namespace RS_Tools.Tools.DomainAppointer
 
         #region Methods
 
+        /// <summary>
+        /// Gets all maps in the current project and adds them to the drop down list
+        /// </summary>
         private async void GetMaps()
         {
             _maps.Clear();
@@ -188,6 +189,9 @@ namespace RS_Tools.Tools.DomainAppointer
             if (_maps.Count <= 0) MessageBox.Show("No Maps Exist");
         }
 
+        /// <summary>
+        /// Gets all layers in the currently selected map and adds them to the drop down list
+        /// </summary>
         private void PopulateMapLayers()
         {
             _layers.Clear();
@@ -206,6 +210,9 @@ namespace RS_Tools.Tools.DomainAppointer
             }
         }
 
+        /// <summary>
+        /// Gets all the field in the selected layer that meets requirement and adds them to the drop down list
+        /// </summary>
         private async void PopulateLayerFields()
         {
             _fields.Clear();
@@ -245,6 +252,11 @@ namespace RS_Tools.Tools.DomainAppointer
             }
         }
 
+        /// <summary>
+        /// Check to make sure the enviorment is set up correctly before processing the users request
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private async Task<bool> CheckRequirements()
         {
             if (_selectedMap == null)
@@ -304,6 +316,10 @@ namespace RS_Tools.Tools.DomainAppointer
             return true;
         }
 
+        /// <summary>
+        /// Applys the domain code to the currenly selected feature
+        /// </summary>
+        /// <param name="code"></param>
         internal async void ApplyDomain(DomainCode code)
         {
             if (await CheckRequirements())

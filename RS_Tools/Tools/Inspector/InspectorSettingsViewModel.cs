@@ -40,7 +40,7 @@ namespace RS_Tools.Tools.Inspector
 
             _getMapsCommand = new RelayCommand(() => GetMaps(), () => true);
 
-            Utilities.Utilities.RunOnUiThread(() =>
+            Utilities.ProUtilities.RunOnUiThread(() =>
             {
                 BindingOperations.EnableCollectionSynchronization(_maps, _lockCollection);
                 BindingOperations.EnableCollectionSynchronization(_layers, _lockCollection);
@@ -92,12 +92,12 @@ namespace RS_Tools.Tools.Inspector
             } set
             {
                 _layers.Clear();
-                Utilities.Utilities.RunOnUiThread(() =>
+                Utilities.ProUtilities.RunOnUiThread(() =>
                 {
                     SetProperty(ref _selectedMap, value, () => SelectedMap);
                     if (_selectedMap != null)
                     {
-                        Utilities.Utilities.OpenAndActivateMap(_selectedMap.URI);
+                        Utilities.ProUtilities.OpenAndActivateMap(_selectedMap.URI);
                         PopulateMapLayers();
                     }
                 });
@@ -119,7 +119,7 @@ namespace RS_Tools.Tools.Inspector
                 return _selectedLayer;
             } set
             {
-                Utilities.Utilities.RunOnUiThread(() =>
+                Utilities.ProUtilities.RunOnUiThread(() =>
                 {
                     SetProperty(ref _selectedLayer, value, () => SelectedLayer);
                 });
@@ -337,8 +337,7 @@ namespace RS_Tools.Tools.Inspector
             if (featuresSelected) Update(1,  "Okay Stay");
 
         }
-
-
+        
         /// <summary>
         /// Deletes Currently Selected Features and zooms to next feature if applicable 
         /// </summary>
@@ -430,7 +429,7 @@ namespace RS_Tools.Tools.Inspector
                 await QueuedTask.Run(() =>
                 {
                     basicfeaturelayer.ClearSelection();
-                    FeatureClass featureclass = Utilities.Utilities.LayerToFeatureClass(_selectedLayer);
+                    FeatureClass featureclass = Utilities.ProUtilities.LayerToFeatureClass(_selectedLayer);
                     using (RowCursor cursor = featureclass.Search(queryfilter, false))
                     {
                         while (cursor.MoveNext())

@@ -29,6 +29,7 @@
           <button refID="RS_Tools_Tools_Inspector_Buttons_OKStay" size="middle" />
           <button refID="RS_Tools_Tools_Inspector_Buttons_OKScale" size="middle" />
           <button refID="RS_Tools_Tools_Inspector_Buttons_DeleteNext" size="middle" />
+          <button refID="RS_Tools_Tools_RasterTileLoader_RasterTileLoader_ShowButton" size="large" />
         </group>
         <group id="RS_Tools_Group_DomainAppointer" caption="Domain Appointer" appearsOnAddInTab="false" keytip="DomainAppointer">
           <!-- Buttons Are Ordered For Ease Of Use -->
@@ -115,6 +116,9 @@
           <tooltip heading="9">
             Assign Domain 9<disabledText /></tooltip>
         </button>
+        <button id="RS_Tools_Tools_RasterTileLoader_RasterTileLoader_ShowButton" caption="Show RasterTileLoader" className="RS_Tools.Tools.RasterTileLoader.RasterTileLoader_ShowButton" loadOnClick="true" smallImage="Images\GenericButtonPurple16.png" largeImage="Images\GenericButtonPurple32.png">
+          <tooltip heading="Show Dockpane">Show Dockpane<disabledText /></tooltip>
+        </button>
       </controls>
       <dockPanes>
         <dockPane id="RS_Tools_Tools_Inspector_InspectorSettings" caption="Inspector Settings" className="RS_Tools.Tools.Inspector.InspectorSettingsViewModel" dock="group" dockWith="esri_core_contentsDockPane">
@@ -122,6 +126,9 @@
         </dockPane>
         <dockPane id="RS_Tools_Tools_DomainAppointer_DomainAppointerSettings" caption="Domain Appointer Settings" className="RS_Tools.Tools.DomainAppointer.DomainAppointerSettingsViewModel" dock="group" dockWith="esri_core_contentsDockPane">
           <content className="RS_Tools.Tools.DomainAppointer.DomainAppointerSettingsView" />
+        </dockPane>
+        <dockPane id="RS_Tools_Tools_RasterTileLoader_RasterTileLoader" caption="RasterTileLoader" className="RS_Tools.Tools.RasterTileLoader.RasterTileLoaderViewModel" dock="group" dockWith="esri_core_contentsDockPane">
+          <content className="RS_Tools.Tools.RasterTileLoader.RasterTileLoaderView" />
         </dockPane>
       </dockPanes>
     </insertModule>
@@ -136,49 +143,49 @@
   </conditions>
   <accelerators>
     <!-- Inspector Accelerators -->
-    <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_OKNext"            flags="Ctrl+Shift" key="N" />
-    <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_OKStay"            flags="Ctrl+Shift" key="S" />
-    <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_OKScale"           flags="Ctrl+Shift" key="X" />
-    <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_DeleteNext"        flags="Ctrl+Shift" key="D" />
+    <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_OKNext" flags="Ctrl+Shift" key="N" />
+    <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_OKStay" flags="Ctrl+Shift" key="S" />
+    <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_OKScale" flags="Ctrl+Shift" key="X" />
+    <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_DeleteNext" flags="Ctrl+Shift" key="D" />
     <!-- Domain Appointer Accelerators -->
-    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain00"    flags="Alt+Shift" key="0" />
-    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain01"    flags="Alt+Shift" key="1" />
-    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain02"    flags="Alt+Shift" key="2" />
-    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain03"    flags="Alt+Shift" key="3" />
-    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain04"    flags="Alt+Shift" key="4" />
-    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain05"    flags="Alt+Shift" key="5" />
-    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain06"    flags="Alt+Shift" key="6" />
-    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain07"    flags="Alt+Shift" key="7" />
-    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain08"    flags="Alt+Shift" key="8" />
-    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain09"    flags="Alt+Shift" key="9" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain00" flags="Alt+Shift" key="0" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain01" flags="Alt+Shift" key="1" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain02" flags="Alt+Shift" key="2" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain03" flags="Alt+Shift" key="3" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain04" flags="Alt+Shift" key="4" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain05" flags="Alt+Shift" key="5" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain06" flags="Alt+Shift" key="6" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain07" flags="Alt+Shift" key="7" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain08" flags="Alt+Shift" key="8" />
+    <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain09" flags="Alt+Shift" key="9" />
     <!-- Builtin Tool Accelerators-->
-    <insertAccelerator refID="esri_editing_ReshapeCommand"                        flags="Shift" key="F2"/>
-    <insertAccelerator refID="esri_editing_SplitFeatureCommand"                   flags="Shift" key="F3"/>
-    <insertAccelerator refID="esri_editing_SplitLineCommand"                      flags="Shift" key="F4"/>
-    <insertAccelerator refID="esri_editing_SquareAndFinishCommand"                flags="Shift" key="F5"/>
-    <insertAccelerator refID="esri_editing_ExplodeFeatures"                       flags="Shift" key="F6"/>
-    <insertAccelerator refID="esri_editing_MergeFeatures"                         flags="Shift" key="F7"/>
+    <insertAccelerator refID="esri_editing_ReshapeCommand" flags="Shift" key="F2" />
+    <insertAccelerator refID="esri_editing_SplitFeatureCommand" flags="Shift" key="F3" />
+    <insertAccelerator refID="esri_editing_SplitLineCommand" flags="Shift" key="F4" />
+    <insertAccelerator refID="esri_editing_SquareAndFinishCommand" flags="Shift" key="F5" />
+    <insertAccelerator refID="esri_editing_ExplodeFeatures" flags="Shift" key="F6" />
+    <insertAccelerator refID="esri_editing_MergeFeatures" flags="Shift" key="F7" />
     <!--                                                                          flags="Shift" key="F8"/> Open -->
     <!--                                                                          flags="Shift" key="F9"/> Open -->
-    <insertAccelerator refID="esri_editing_EditVerticesContinue"                  flags="Shift" key="F10"/>
-    <insertAccelerator refID="esri_mapping_clearLayerSelectionButton"             flags="Shift" key="F11"/>
+    <insertAccelerator refID="esri_editing_EditVerticesContinue" flags="Shift" key="F10" />
+    <insertAccelerator refID="esri_mapping_clearLayerSelectionButton" flags="Shift" key="F11" />
     <!--                                                                          flags="Shift" key="F12"/> Open-->
-    <insertAccelerator refID="esri_mapping_selectContext"                         flags="Ctrl+Shift" key="F1"/>
-    <insertAccelerator refID="esri_mapping_selectByRectangleTool"                 flags="Ctrl+Shift" key="F2"/>
-    <insertAccelerator refID="esri_editing_EndPointArcConstructor"                flags="Ctrl+Shift" key="F3"/>
-    <insertAccelerator refID="esri_editing_EditVerticesMove"                      flags="Ctrl+Shift" key="F4"/>
+    <insertAccelerator refID="esri_mapping_selectContext" flags="Ctrl+Shift" key="F1" />
+    <insertAccelerator refID="esri_mapping_selectByRectangleTool" flags="Ctrl+Shift" key="F2" />
+    <insertAccelerator refID="esri_editing_EndPointArcConstructor" flags="Ctrl+Shift" key="F3" />
+    <insertAccelerator refID="esri_editing_EditVerticesMove" flags="Ctrl+Shift" key="F4" />
     <!-- This Refreshes the view                                                  flags="Ctrl+Shift" key="F5"/> -->
     <!-- This Has A Random Open Pane Effect                                       flags="Ctrl+Shift" key="F6"-->
-    <insertAccelerator refID="esri_editing_ModifyEdgeTool"                        flags="Ctrl+Shift" key="F7"/>
-    <insertAccelerator refID="esri_editing_SketchCircleLineTool"                  flags="Ctrl+Shift" key="F8"/>
-    <insertAccelerator refID="esri_editing_SketchCirclePolygonTool"               flags="Ctrl+Shift" key="F9"/>
-    <insertAccelerator refID="esri_editing_SketchLineTool"                        flags="Ctrl+Shift" key="F10"/>
-    <insertAccelerator refID="esri_editing_SketchPolygonTool"                     flags="Ctrl+Shift" key="F11"/>
-    <insertAccelerator refID="esri_editing_SketchRectangleLineTool"               flags="Ctrl+Shift" key="F12"/>
-    <insertAccelerator refID="esri_editing_SketchRectanglePolygonTool"            flags="Alt+Shift" key="F1"/>
+    <insertAccelerator refID="esri_editing_ModifyEdgeTool" flags="Ctrl+Shift" key="F7" />
+    <insertAccelerator refID="esri_editing_SketchCircleLineTool" flags="Ctrl+Shift" key="F8" />
+    <insertAccelerator refID="esri_editing_SketchCirclePolygonTool" flags="Ctrl+Shift" key="F9" />
+    <insertAccelerator refID="esri_editing_SketchLineTool" flags="Ctrl+Shift" key="F10" />
+    <insertAccelerator refID="esri_editing_SketchPolygonTool" flags="Ctrl+Shift" key="F11" />
+    <insertAccelerator refID="esri_editing_SketchRectangleLineTool" flags="Ctrl+Shift" key="F12" />
+    <insertAccelerator refID="esri_editing_SketchRectanglePolygonTool" flags="Alt+Shift" key="F1" />
     <!--                                                                          flags="Alt+Shift" key="F2"/> Open-->
-    <insertAccelerator refID="esri_editing_PerpendicularContextMenuItem"          flags="Alt+Shift" key="F3"/>
+    <insertAccelerator refID="esri_editing_PerpendicularContextMenuItem" flags="Alt+Shift" key="F3" />
     <!-- This Can Shutdown ArcGIS Pro                                             flags="Alt+Shift" key="F4"-->
-    <insertAccelerator refID="esri_mapping_exploreTool"                           flags="Alt+Shift" key="F5"/>
+    <insertAccelerator refID="esri_mapping_exploreTool" flags="Alt+Shift" key="F5" />
   </accelerators>
 </ArcGIS>

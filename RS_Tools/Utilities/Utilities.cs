@@ -16,7 +16,7 @@ using MessageBox = ArcGIS.Desktop.Framework.Dialogs.MessageBox;
 
 namespace RS_Tools.Utilities
 {
-    internal class Utilities
+    internal class ProUtilities
     {
 
         /// <summary>
