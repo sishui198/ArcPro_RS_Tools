@@ -25,5 +25,15 @@ namespace RS_Tools.Tools.RasterTileLoader
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Prevents spaces from being entered in file extension combo box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ComboBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space) e.Handled = true;
+        }
     }
 }

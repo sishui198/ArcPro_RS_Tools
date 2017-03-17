@@ -24,19 +24,29 @@ namespace RS_Tools.Tools.RasterTileLoader
     {
         private const string _dockPaneID = "RS_Tools_Tools_RasterTileLoader_RasterTileLoader";
 
+        private string _saveFolder = String.Empty;
+        private string _saveFile = "ExtensionList.txt";
+        private string _saveFullPath = String.Empty;
+
         private readonly ObservableCollection<Map> _maps = new ObservableCollection<Map>();
         private readonly ObservableCollection<FeatureLayer> _featureLayers = new ObservableCollection<FeatureLayer>();
         private readonly ObservableCollection<String> _fields = new ObservableCollection<string>();
+        private readonly ObservableCollection<String> _fileExtensions = new ObservableCollection<string>();
         private Map _selectedMap = null;
         private FeatureLayer _selectedFeatureLayer = null;
         private String _selectedField = String.Empty;
         private EnumRasterLoadingMethod _rasterLoadingMethod;
         private String _rasterWorkspace = String.Empty;
+        private String _selectedFileExtension = String.Empty;
+        private List<String> _rasterList = new List<string>();
         
         private readonly object _lockCollection = new object();
 
         protected RasterTileLoaderViewModel()
         {
+            _saveFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"RS_Tools\Pro\RasterTileLoader");
+            _saveFullPath = System.IO.Path.Combine(_saveFolder, _saveFile);
+
             _getMapsCommand = new RelayCommand(() => GetMaps(), () => true);
             _loadRasterCommand = new RelayCommand(() => LoadRasters(), () => true);
             _getRasterWorkspaceCommand = new RelayCommand(() => GetRasterWorkspace(), () => true);
@@ -50,6 +60,8 @@ namespace RS_Tools.Tools.RasterTileLoader
 
             LayersAddedEvent.Subscribe(OnLayersAdded, false);
             LayersRemovedEvent.Subscribe(OnLayersRemoved, false);
+
+            LoadFileExtensions();
         }
 
         #region DockPane
@@ -151,6 +163,23 @@ namespace RS_Tools.Tools.RasterTileLoader
                 Utilities.ProUtilities.RunOnUiThread(() =>
                 {
                     SetProperty(ref _selectedField, value, () => SelectedField);
+                });
+            }
+        }
+
+        public ObservableCollection<String> FileExtensions => _fileExtensions;
+
+        public String SelectedFileExtension
+        {
+            get
+            {
+                return _selectedFileExtension;
+            }
+            set
+            {
+                Utilities.ProUtilities.RunOnUiThread(() =>
+                {
+                    SetProperty(ref _selectedFileExtension, value, () => SelectedFileExtension);
                 });
             }
         }
@@ -278,7 +307,8 @@ namespace RS_Tools.Tools.RasterTileLoader
 
         private void LoadRasters()
         {
-            
+            MessageBox.Show(_saveFullPath);
+            SaveFileExtensions(".txt");
         }
 
         private void GetRasterWorkspace()
@@ -297,6 +327,93 @@ namespace RS_Tools.Tools.RasterTileLoader
             if (dialog.ShowDialog() == true)
             {
                 RasterWorkspace = dialog.Items.First().Path;
+            }
+        }
+
+        private void LoadFileExtensions()
+        {
+            _fileExtensions.Clear();
+
+            if (!Directory.Exists(_saveFolder)) Directory.CreateDirectory(_saveFolder);
+
+            if (File.Exists(_saveFullPath))
+            {
+                using (StreamReader sStreamReader = new StreamReader(_saveFullPath))
+                {
+                    string AllData = sStreamReader.ReadToEnd();
+                    foreach (var item in AllData.Split(",".ToCharArray()).ToArray()) _fileExtensions.Add(item);
+                }
+            }
+        }
+
+        private void SaveFileExtensions(string type)
+        {
+            if (!_fileExtensions.Contains(type, StringComparer.OrdinalIgnoreCase) && !String.IsNullOrEmpty(type))
+            {
+                _fileExtensions.Add(type);
+            }
+            using (TextWriter tw = new StreamWriter(_saveFullPath))
+            {
+                tw.Write(String.Join(",", _fileExtensions.ToArray()));
+            }
+        }
+
+        private async Task<bool> CheckRequirements()
+        {
+            if (_selectedMap == null)
+            {
+                MessageBox.Show("Select a Map in Raster Tile Loader Settings");
+                return false;
+            }
+
+            if (_selectedFeatureLayer == null)
+            {
+                MessageBox.Show("Select a Feature Layer In Raster Tile Loader Settings");
+                return false;
+            }
+
+            if (_selectedField == null)
+            {
+                MessageBox.Show("Select A Field In Raster Tile Loader Settings");
+                return false;
+            }
+
+            IEnumerable<Field> fields = null;
+
+            await QueuedTask.Run(() =>
+            {
+                Table table = _selectedFeatureLayer.GetTable();
+                if (table is FeatureClass)
+                {
+                    FeatureClass featureclass = table as FeatureClass;
+                    using (FeatureClassDefinition def = featureclass.GetDefinition())
+                    {
+                        fields = def.GetFields();
+                    }
+                }
+            });
+
+            var match = fields.FirstOrDefault(field => field.Name.ToLower().Contains(_selectedField.ToLower()));
+            if (match == null)
+            {
+                MessageBox.Show("This field '");
+            }
+
+        }
+
+        private void BuildRasterList()
+        {
+            _rasterList.Clear();
+
+            switch (_rasterLoadingMethod)
+            {
+                case EnumRasterLoadingMethod.None:
+                    break;
+                case EnumRasterLoadingMethod.All:
+
+                    break;
+                case EnumRasterLoadingMethod.Selected:
+                    break;
             }
         }
 
