@@ -16,6 +16,7 @@ using System.Windows.Input;
 using static RS_Tools.Tools.RasterTileLoader.DataService;
 using ArcGIS.Core.Data;
 using ArcGIS.Desktop.Catalog;
+using System.IO;
 
 namespace RS_Tools.Tools.RasterTileLoader
 {
@@ -286,12 +287,19 @@ namespace RS_Tools.Tools.RasterTileLoader
             dialog.Title = "Select A Raster Workspace";
             dialog.MultiSelect = false;
             dialog.Filter = ItemFilters.folders;
+
+            if (Directory.Exists(_rasterWorkspace))
+            {
+                dialog.InitialLocation = _rasterWorkspace;
+            }
+
+            
             if (dialog.ShowDialog() == true)
             {
-                MessageBox.Show(dialog.Items.First().Path);
+                RasterWorkspace = dialog.Items.First().Path;
             }
-            
         }
+
         #endregion
         
 

@@ -37,8 +37,8 @@
         <Label Content="File Extension" Margin="10,281,10,0" VerticalAlignment="Top"/>
         <ComboBox Margin="10,302,10,0" VerticalAlignment="Top" IsEditable="True" Text="{Binding FileExtension, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Content="Raster Workspace" Margin="10,329,12,0" VerticalAlignment="Top"/>
-        <TextBox Height="23" Margin="10,350,38,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding RasterWorkspace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <Button Margin="0,350,10,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="23" Command="{Binding GetRasterWorkspaceCommand}">
+        <TextBox Height="90" Margin="10,350,85,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding RasterWorkspace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Margin="0,350,10,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="37" Style="{DynamicResource Esri_SimpleButton}" Command="{Binding GetRasterWorkspaceCommand}">
             <Button.Background>
                 <ImageBrush ImageSource="/RS_Tools;component/Images/RasterTileLoader/Open Folder.png" Stretch="Uniform"/>
             </Button.Background>
@@ -46,10 +46,10 @@
                 <Image Source="/RS_Tools;component/Images/RasterTileLoader/Open Folder.png" Stretch="Uniform"/>
             </Button.Content>
         </Button>
-        <Label Content="Raster Loading Method" Margin="10,378,10,0" VerticalAlignment="Top"/>
-        <RadioButton Content="All" HorizontalAlignment="Left" Margin="20,399,0,0" VerticalAlignment="Top" Width="35" IsChecked="{Binding Path=RasterLoadingMethod, Mode=TwoWay, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=All}"/>
-        <RadioButton Content="Selected" HorizontalAlignment="Left" Margin="60,399,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.333" Width="65" IsChecked="{Binding Path=RasterLoadingMethod, Mode=TwoWay, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Selected}"/>
-        <Button Content="Load Raster" Margin="0,419,10,57" HorizontalAlignment="Right" Width="132" Style="{DynamicResource Esri_SimpleButton}" Command="{Binding LoadRasterCommand}" Height="22"/>
-        
+        <Label Content="Raster Loading Method" Margin="10,445,10,0" VerticalAlignment="Top"/>
+        <RadioButton Content="All" HorizontalAlignment="Left" Margin="20,466,0,0" VerticalAlignment="Top" Width="35" IsChecked="{Binding Path=RasterLoadingMethod, Mode=TwoWay, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=All}"/>
+        <RadioButton Content="Selected" HorizontalAlignment="Left" Margin="67,466,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.333" Width="65" IsChecked="{Binding Path=RasterLoadingMethod, Mode=TwoWay, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Selected}"/>
+        <Button Content="Load Raster" Margin="0,466,10,10" HorizontalAlignment="Right" Width="132" Style="{DynamicResource Esri_SimpleButton}" Command="{Binding LoadRasterCommand}" Height="22"/>
+
     </Grid>
 </UserControl>
