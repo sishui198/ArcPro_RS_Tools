@@ -17,6 +17,7 @@
         <tab id="Remote_Sensing" caption="Remote Sensing" keytip="Remote Sensing">
           <group refID="RS_Tools_Group_Inspecting" />
           <group refID="RS_Tools_Group_DomainAppointer" />
+          <group refID="RS_Tools_Group_Utilities"/>
         </tab>
       </tabs>
       <groups>
@@ -29,7 +30,6 @@
           <button refID="RS_Tools_Tools_Inspector_Buttons_OKStay" size="middle" />
           <button refID="RS_Tools_Tools_Inspector_Buttons_OKScale" size="middle" />
           <button refID="RS_Tools_Tools_Inspector_Buttons_DeleteNext" size="middle" />
-          <button refID="RS_Tools_Tools_RasterTileLoader_RasterTileLoader_ShowButton" size="large" />
         </group>
         <group id="RS_Tools_Group_DomainAppointer" caption="Domain Appointer" appearsOnAddInTab="false" keytip="DomainAppointer">
           <!-- Buttons Are Ordered For Ease Of Use -->
@@ -44,6 +44,10 @@
           <button refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain06" size="small" />
           <button refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain09" size="small" />
           <button refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain03" size="small" />
+        </group>
+        <!-- Remote Sensing Utilities -->
+        <group id="RS_Tools_Group_Utilities" caption="Utilities" appearsOnAddInTab="false" keytip="Utilities">
+          <button refID="RS_Tools_Tools_RasterTileLoader_RasterTileLoader_ShowButton" size="large"/>
         </group>
       </groups>
       <controls>
@@ -116,7 +120,7 @@
           <tooltip heading="9">
             Assign Domain 9<disabledText /></tooltip>
         </button>
-        <button id="RS_Tools_Tools_RasterTileLoader_RasterTileLoader_ShowButton" caption="Show RasterTileLoader" className="RS_Tools.Tools.RasterTileLoader.RasterTileLoader_ShowButton" loadOnClick="true" smallImage="Images\GenericButtonPurple16.png" largeImage="Images\GenericButtonPurple32.png">
+        <button id="RS_Tools_Tools_RasterTileLoader_RasterTileLoader_ShowButton" keytip ="Raster Tile Loader" caption="Raster Tile Loader Settings" className="RS_Tools.Tools.RasterTileLoader.RasterTileLoader_ShowButton" loadOnClick="true" smallImage="Images\RasterTileLoader\RasterTileLoader_16.png" largeImage="Images\RasterTileLoader\RasterTileLoader_32.png">
           <tooltip heading="Show Dockpane">Show Dockpane<disabledText /></tooltip>
         </button>
       </controls>
@@ -127,7 +131,7 @@
         <dockPane id="RS_Tools_Tools_DomainAppointer_DomainAppointerSettings" caption="Domain Appointer Settings" className="RS_Tools.Tools.DomainAppointer.DomainAppointerSettingsViewModel" dock="group" dockWith="esri_core_contentsDockPane">
           <content className="RS_Tools.Tools.DomainAppointer.DomainAppointerSettingsView" />
         </dockPane>
-        <dockPane id="RS_Tools_Tools_RasterTileLoader_RasterTileLoader" caption="RasterTileLoader" className="RS_Tools.Tools.RasterTileLoader.RasterTileLoaderViewModel" dock="group" dockWith="esri_core_contentsDockPane">
+        <dockPane id="RS_Tools_Tools_RasterTileLoader_RasterTileLoader" caption="Raster Tile Loader" className="RS_Tools.Tools.RasterTileLoader.RasterTileLoaderViewModel" dock="group" dockWith="esri_core_contentsDockPane">
           <content className="RS_Tools.Tools.RasterTileLoader.RasterTileLoaderView" />
         </dockPane>
       </dockPanes>

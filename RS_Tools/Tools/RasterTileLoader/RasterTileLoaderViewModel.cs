@@ -35,10 +35,12 @@ namespace RS_Tools.Tools.RasterTileLoader
         private Map _selectedMap = null;
         private FeatureLayer _selectedFeatureLayer = null;
         private String _selectedField = String.Empty;
-        private EnumRasterLoadingMethod _rasterLoadingMethod;
+        private String _prefix = String.Empty;
+        private String _suffix = String.Empty;
+        private String _fileExtension = String.Empty;
         private String _rasterWorkspace = String.Empty;
-        private String _selectedFileExtension = String.Empty;
-        private List<String> _rasterList = new List<string>();
+        private EnumRasterLoadingMethod _rasterLoadingMethod;
+        private IDictionary<String, Boolean> _rasterList = new Dictionary<string, bool>();
         
         private readonly object _lockCollection = new object();
 
@@ -61,7 +63,7 @@ namespace RS_Tools.Tools.RasterTileLoader
             LayersAddedEvent.Subscribe(OnLayersAdded, false);
             LayersRemovedEvent.Subscribe(OnLayersRemoved, false);
 
-            LoadFileExtensions();
+            ReadFileExtensionsFromDisk();
         }
 
         #region DockPane
@@ -167,19 +169,49 @@ namespace RS_Tools.Tools.RasterTileLoader
             }
         }
 
-        public ObservableCollection<String> FileExtensions => _fileExtensions;
-
-        public String SelectedFileExtension
+        public String Prefix
         {
             get
             {
-                return _selectedFileExtension;
+                return _prefix;
             }
             set
             {
                 Utilities.ProUtilities.RunOnUiThread(() =>
                 {
-                    SetProperty(ref _selectedFileExtension, value, () => SelectedFileExtension);
+                    SetProperty(ref _prefix, value, () => Prefix);
+                });
+            }
+        }
+
+        public String Suffix
+        {
+            get
+            {
+                return _suffix;
+            }
+            set
+            {
+                Utilities.ProUtilities.RunOnUiThread(() =>
+                {
+                    SetProperty(ref _suffix, value, () => Suffix);
+                });
+            }
+        }
+
+        public ObservableCollection<String> FileExtensions => _fileExtensions;
+
+        public String FileExtension
+        {
+            get
+            {
+                return _fileExtension;
+            }
+            set
+            {
+                Utilities.ProUtilities.RunOnUiThread(() =>
+                {
+                    SetProperty(ref _fileExtension, value, () => FileExtension);
                 });
             }
         }
@@ -237,6 +269,9 @@ namespace RS_Tools.Tools.RasterTileLoader
 
         #region Methods
         
+        /// <summary>
+        /// Adds the projects maps to the '_maps' Collection
+        /// </summary>
         private async void GetMaps()
         {
             _maps.Clear();
@@ -254,13 +289,16 @@ namespace RS_Tools.Tools.RasterTileLoader
             if (_maps.Count <= 0) MessageBox.Show("No Maps Exist");
         }
 
+        /// <summary>
+        ///  Adds the selected map's features layers to the '_featureLayers' collection
+        /// </summary>
         private void PopulateMapLayers()
         {
-            _featureLayers.Clear();
             if (_selectedMap != null)
             {
                 QueuedTask.Run(() =>
                 {
+                    _featureLayers.Clear();
                     foreach (var layer in _selectedMap.Layers.OfType<FeatureLayer>().Where( 
                         lyr => lyr.ShapeType == ArcGIS.Core.CIM.esriGeometryType.esriGeometryPolygon))
                     {
@@ -270,6 +308,9 @@ namespace RS_Tools.Tools.RasterTileLoader
             }
         }
 
+        /// <summary>
+        ///  Adds the selected feature layer's field to the '_fields' collection
+        /// </summary>
         private async void PopulateFeatureLayerFields()
         {
             _fields.Clear();
@@ -305,12 +346,20 @@ namespace RS_Tools.Tools.RasterTileLoader
             }
         }
 
-        private void LoadRasters()
+        /// <summary>
+        /// Command To Load Rasters Into Current Selected Map
+        /// </summary>
+        private async void LoadRasters()
         {
-            MessageBox.Show(_saveFullPath);
-            SaveFileExtensions(".txt");
+            await GenerateRasterList();
+            ValidateRasterList();
+            await LoadRasterList();
+            
         }
 
+        /// <summary>
+        /// Command to Get Raster Workspace
+        /// </summary>
         private void GetRasterWorkspace()
         {
             OpenItemDialog dialog = new OpenItemDialog();
@@ -330,7 +379,10 @@ namespace RS_Tools.Tools.RasterTileLoader
             }
         }
 
-        private void LoadFileExtensions()
+        /// <summary>
+        /// Gets file extensions from disk and loads them in for the user to select
+        /// </summary>
+        private void ReadFileExtensionsFromDisk()
         {
             _fileExtensions.Clear();
 
@@ -346,6 +398,10 @@ namespace RS_Tools.Tools.RasterTileLoader
             }
         }
 
+        /// <summary>
+        /// Saves file extension to disk for the user in the future
+        /// </summary>
+        /// <param name="type"></param>
         private void SaveFileExtensions(string type)
         {
             if (!_fileExtensions.Contains(type, StringComparer.OrdinalIgnoreCase) && !String.IsNullOrEmpty(type))
@@ -357,7 +413,11 @@ namespace RS_Tools.Tools.RasterTileLoader
                 tw.Write(String.Join(",", _fileExtensions.ToArray()));
             }
         }
-
+        
+        /// <summary>
+        /// Check to make sure the enviorment is set up correctly before processing the users request
+        /// </summary>
+        /// <returns></returns>
         private async Task<bool> CheckRequirements()
         {
             if (_selectedMap == null)
@@ -396,24 +456,175 @@ namespace RS_Tools.Tools.RasterTileLoader
             var match = fields.FirstOrDefault(field => field.Name.ToLower().Contains(_selectedField.ToLower()));
             if (match == null)
             {
-                MessageBox.Show("This field '");
+                MessageBox.Show("This field '" + _selectedField + "' is Missing From '" + _selectedFeatureLayer.Name + "' Feature Layer");
+                return false;
             }
+
+            if (_rasterLoadingMethod == EnumRasterLoadingMethod.None)
+            {
+                MessageBox.Show("Select a Raster Loading Method");
+                return false;
+            }
+
+            // No need to check for whitespace. I disallow this in the 'view'.
+            if (String.IsNullOrEmpty(_fileExtension))
+            {
+                MessageBox.Show("Type or Choose a File Extension");
+                return false;
+            }
+
+            if (String.IsNullOrWhiteSpace(_rasterWorkspace))
+            {
+                MessageBox.Show("Type or Choose a Raster Workspace");
+                return false;
+            }
+
+            return true;
 
         }
 
-        private void BuildRasterList()
+        /// <summary>
+        /// Generates Raster List 
+        /// </summary>
+        private async Task GenerateRasterList()
         {
             _rasterList.Clear();
 
-            switch (_rasterLoadingMethod)
+            if (await CheckRequirements())
             {
-                case EnumRasterLoadingMethod.None:
-                    break;
-                case EnumRasterLoadingMethod.All:
+                switch (_rasterLoadingMethod)
+                {
+                    case EnumRasterLoadingMethod.All:
+                        await QueuedTask.Run(() =>
+                        {
+                            using (RowCursor cursor = _selectedFeatureLayer.GetFeatureClass().Search(null, false))
+                            {
+                                int fieldIndex = cursor.FindField(_selectedField);
+                                while (cursor.MoveNext())
+                                {                                    
+                                    using (Row row = cursor.Current)
+                                    {
+                                        String value = Convert.ToString(row.GetOriginalValue(fieldIndex));
+                                        if (!_rasterList.ContainsKey(value))
+                                        {
+                                            _rasterList.Add(value, true);
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    case EnumRasterLoadingMethod.Selected:
+                        await QueuedTask.Run(() =>
+                        {
+                            Selection selection = _selectedFeatureLayer.GetSelection();
+                            IReadOnlyList<long> oidset = selection.GetObjectIDs();
+                            FeatureClass featureclass = _selectedFeatureLayer.GetFeatureClass();
 
-                    break;
-                case EnumRasterLoadingMethod.Selected:
-                    break;
+                            using (RowCursor cursor = featureclass.Search(null, false))
+                            {
+                                // Get Users Selected Field From Feature Class
+                                int fieldIndex = cursor.FindField(_selectedField);
+
+                                // TODO: Cycle through all features... This can be slow update when sdk updates
+                                while (cursor.MoveNext())
+                                {
+                                    using (Row row = cursor.Current)
+                                    {
+                                        long oid = row.GetObjectID();
+                                        // Check if current feature is in selected feature OID set
+                                        if (oidset.Contains(oid))
+                                        {
+                                            String value = Convert.ToString(row.GetOriginalValue(fieldIndex));
+                                            if (!_rasterList.ContainsKey(value))
+                                            {
+                                                _rasterList.Add(value, true);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            
+                        });
+                        break;
+                    case EnumRasterLoadingMethod.None:
+                        // Exhaust The Enumerator
+                        break;
+                }
+            }
+        }
+
+        private void ValidateRasterList()
+        {
+            IDictionary<String, Boolean> tempList = new Dictionary<String, Boolean>();
+
+            foreach (KeyValuePair<String, Boolean> raster in _rasterList)
+            {
+                string filePath = _rasterWorkspace + @"\" + AddPrefixAndSuffix(raster.Key) + _fileExtension;
+                if (!File.Exists(filePath))
+                {
+                    // File Does Not Exist
+                    tempList.Add(filePath, false);
+                }
+                else
+                {
+                    // File Does Exist
+                    tempList.Add(filePath, true);
+                }
+            }
+
+            _rasterList = tempList;
+        }
+
+        private String AddPrefixAndSuffix(string name)
+        {
+            string filename = String.Empty;
+            string temp = string.Empty;
+
+            if (!String.IsNullOrEmpty(_prefix))
+            {
+                temp = _prefix;
+                temp.Replace(" ", String.Empty);
+                filename += temp;
+            }
+
+            filename += name;
+
+            if (!String.IsNullOrEmpty(_suffix))
+            {
+                temp = _suffix;
+                temp.Replace(" ", String.Empty);
+                filename += temp;
+            }
+            return filename;
+        }
+        
+        private async Task LoadRasterList()
+        {
+            bool itWorked = false;
+            foreach (KeyValuePair<String, Boolean> raster in _rasterList)
+            {
+                if (raster.Value)
+                {
+                    if (!itWorked)
+                        SaveFileExtensions(_fileExtension);
+
+                    itWorked = true;
+
+                    try
+                    {
+                        Uri uri = new Uri(raster.Key);
+                        await QueuedTask.Run(() =>
+                        {
+                            LayerFactory.CreateLayer(uri, _selectedMap);
+
+                        });
+                    }
+                    catch (Exception yourBest) // But you don't succeed
+                    {
+                        // Just So We Get No Crashes ;) 
+                    }
+                }
             }
         }
 

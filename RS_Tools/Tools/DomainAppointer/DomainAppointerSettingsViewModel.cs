@@ -253,7 +253,7 @@ namespace RS_Tools.Tools.DomainAppointer
         }
 
         /// <summary>
-        /// Check to make sure the enviorment is set up correctly before processing the users request
+        /// Check to make sure the enviornment is set up correctly before processing the users request
         /// 
         /// </summary>
         /// <returns></returns>
