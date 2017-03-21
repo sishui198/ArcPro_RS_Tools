@@ -7,14 +7,14 @@ using ArcGIS.Core.Geometry;
 using ArcGIS.Desktop.Mapping;
 using ArcGIS.Desktop.Framework;
 using ArcGIS.Desktop.Framework.Contracts;
-using RS_Tools.Tools.FileTileLoader;
+using RS_Tools.Tools.FileTileOpener;
 using MessageBox = ArcGIS.Desktop.Framework.Dialogs.MessageBox;
 
-namespace RS_Tools.Tools.FileTileLoader.MapTools
+namespace RS_Tools.Tools.FileTileOpener.MapTools
 {
     internal class SelectTileTool : MapTool
     {
-        FileTileLoaderViewModel reference = null;
+        FileTileOpenerViewModel reference = null;
 
         public SelectTileTool()
         {
@@ -22,7 +22,7 @@ namespace RS_Tools.Tools.FileTileLoader.MapTools
             SketchType = SketchGeometryType.Point;
             SketchOutputMode = SketchOutputMode.Map;
 
-            reference = FrameworkApplication.DockPaneManager.Find("RS_Tools_Tools_FileTileLoader_FileTileLoader") as FileTileLoaderViewModel;
+            reference = FrameworkApplication.DockPaneManager.Find("RS_Tools_Tools_FileTileOpener_FileTileOpener") as FileTileOpenerViewModel;
 
         }
 
@@ -33,7 +33,7 @@ namespace RS_Tools.Tools.FileTileLoader.MapTools
 
         protected override Task<bool> OnSketchCompleteAsync(Geometry geometry)
         {   
-            if (reference != null)
+            if (reference != null && (geometry as MapPoint) != null)
             {
                 reference.LoadFile(geometry as MapPoint);
             } else

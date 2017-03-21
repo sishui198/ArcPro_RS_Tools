@@ -10,6 +10,7 @@ using ArcGIS.Desktop.Mapping.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,11 +18,11 @@ using System.Windows.Data;
 using System.Windows.Input;
 using MessageBox = ArcGIS.Desktop.Framework.Dialogs.MessageBox;
 
-namespace RS_Tools.Tools.FileTileLoader
+namespace RS_Tools.Tools.FileTileOpener
 {
-    internal class FileTileLoaderViewModel : DockPane
+    internal class FileTileOpenerViewModel : DockPane
     {
-        private const string _dockPaneID = "RS_Tools_Tools_FileTileLoader_FileTileLoader";
+        private const string _dockPaneID = "RS_Tools_Tools_FileTileOpener_FileTileOpener";
 
         private string _saveFolder = String.Empty;
         private string _saveFile = "ExtensionList.txt";
@@ -44,14 +45,14 @@ namespace RS_Tools.Tools.FileTileLoader
         private readonly object _lockCollection = new object();
 
         // Constructor
-        protected FileTileLoaderViewModel()
+        protected FileTileOpenerViewModel()
         {
             _saveFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"RS_Tools\Pro\FileTileLoader");
             _saveFullPath = System.IO.Path.Combine(_saveFolder, _saveFile);
 
             _getMapsCommand = new RelayCommand(() => GetMaps(), () => true);
             _getFileWorkspaceCommand = new RelayCommand(() => GetFileWorkspace(), () => true);
-            _selectTileCommand = FrameworkApplication.GetPlugInWrapper("RS_Tools_Tools_FileTileLoader_MapTools_SelectTileTool") as ICommand;
+            _selectTileCommand = FrameworkApplication.GetPlugInWrapper("RS_Tools_Tools_FileTileOpener_MapTools_SelectTileTool") as ICommand;
 
             Utilities.ProUtilities.RunOnUiThread(() =>
             {
@@ -84,7 +85,7 @@ namespace RS_Tools.Tools.FileTileLoader
         /// <summary>
         /// Text shown near the top of the DockPane.
         /// </summary>
-        private string _heading = "File Tile Loader Settings";
+        private string _heading = "File Tile Opener Settings";
         public string Heading
         {
             get { return _heading; }
@@ -356,9 +357,103 @@ namespace RS_Tools.Tools.FileTileLoader
             }
         }
 
-        public void LoadFile(MapPoint point)
+        public async void LoadFile(MapPoint point)
         {
-            MessageBox.Show(point.X.ToString() + ", " + point.Y.ToString());
+            if (await CheckRequirements())
+            {
+                await QueuedTask.Run(() =>
+                {
+                    SpatialQueryFilter spatialFilter = new SpatialQueryFilter();
+                    spatialFilter.FilterGeometry = point;
+                    spatialFilter.SpatialRelationship = SpatialRelationship.Intersects;
+
+                    using (RowCursor cursor = _selectedFeatureLayer.GetFeatureClass().Search(spatialFilter, false))
+                    {
+
+                        int fieldindex = cursor.FindField(_selectedField);
+
+                        while (cursor.MoveNext())
+                        {
+                            using (Row row = cursor.Current)
+                            {
+                                string rowValue = Convert.ToString(row.GetOriginalValue(fieldindex));
+
+                                string filePath = _fileWorkspace + @"\" + AddPrefixAndSuffix(rowValue) + _fileExtension;
+
+                                if (!File.Exists(filePath))
+                                {
+                                    MessageBox.Show("File Does Not Exist", "Hmm...");
+                                    return;
+                                }
+
+                                SaveFileExtensionsToDisk(_fileExtension);
+
+                                Process.Start(filePath);
+                            }
+
+                            return;
+                        }
+                        MessageBox.Show("Select a feature from the '" + _selectedFeatureLayer.Name + "' feature layer", "Woah Woah Woah");
+                    }
+                });
+            }
+        }
+
+        private async Task<Boolean> CheckRequirements()
+        {
+            if (_selectedMap == null)
+            {
+                MessageBox.Show("Select A Map In File Tile Opener Settings");
+                return false;
+            }
+
+            if (_selectedFeatureLayer == null)
+            {
+                MessageBox.Show("Select A Layer in File Tile Opener Settings");
+                return false;
+            }
+
+            if (_selectedField == null)
+            {
+                MessageBox.Show("Select a Field in File Tile Opener Settings");
+            }
+
+            IEnumerable<Field> fields = null;
+
+            await QueuedTask.Run(() =>
+            {
+                Table table = _selectedFeatureLayer.GetTable();
+                if (table is FeatureClass)
+                {
+                    FeatureClass featureclass = table as FeatureClass;
+                    using (FeatureClassDefinition def = featureclass.GetDefinition())
+                    {
+                        fields = def.GetFields();
+                    }
+                }
+            });
+
+            var match = fields.FirstOrDefault(field => field.Name.ToLower().Contains(_selectedField.ToLower()));
+            if (match == null)
+            {
+                MessageBox.Show("This field '" + _selectedField + "' is Missing From '" + _selectedFeatureLayer.Name + "' Feature Layer", "Oops");
+                return false;
+            }
+
+            // No need to check for whitespace. I disallow this in the 'view'.
+            if (String.IsNullOrEmpty(_fileExtension))
+            {
+                MessageBox.Show("Type or Choose a File Extension in File Tile Opener Settings");
+                return false;
+            }
+
+            if (String.IsNullOrWhiteSpace(_fileWorkspace))
+            {
+                MessageBox.Show("Type or Choose a File Workspace in File Tile Opener Settings");
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -396,23 +491,45 @@ namespace RS_Tools.Tools.FileTileLoader
             }
         }
 
+        /// <summary>
+        /// Adds the prefix and suffix from the UI to the given string.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private String AddPrefixAndSuffix(string name)
+        {
+            string filename = String.Empty;
+            string temp = string.Empty;
+
+            if (!String.IsNullOrEmpty(_prefix))
+            {
+                temp = _prefix;
+                temp.Replace(" ", String.Empty);
+                filename += temp;
+            }
+
+            filename += name;
+
+            if (!String.IsNullOrEmpty(_suffix))
+            {
+                temp = _suffix;
+                temp.Replace(" ", String.Empty);
+                filename += temp;
+            }
+            return filename;
+        }
 
         #endregion
-
-
-
-
-
     }
 
     /// <summary>
     /// Button implementation to show the DockPane.
     /// </summary>
-    internal class FileTileLoader_ShowButton : Button
+    internal class FileTileOpener_ShowButton : Button
     {
         protected override void OnClick()
         {
-            FileTileLoaderViewModel.Show();
+            FileTileOpenerViewModel.Show();
         }
     }
 }

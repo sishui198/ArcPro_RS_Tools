@@ -14,14 +14,14 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 
-namespace RS_Tools.Tools.FileTileLoader
+namespace RS_Tools.Tools.FileTileOpener
 {
     /// <summary>
     /// Interaction logic for FileTileLoaderView.xaml
     /// </summary>
-    public partial class FileTileLoaderView : UserControl
+    public partial class FileTileOpenerView : UserControl
     {
-        public FileTileLoaderView()
+        public FileTileOpenerView()
         {
             InitializeComponent();
         }

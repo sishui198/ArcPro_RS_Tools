@@ -114,11 +114,11 @@
       <DependentUpon>DomainAppointerSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tools\DomainAppointer\DomainAppointerSettingsViewModel.cs" />
-    <Compile Include="Tools\FileTileLoader\FileTileLoader.xaml.cs">
+    <Compile Include="Tools\FileTileOpener\FileTileLoader.xaml.cs">
       <DependentUpon>FileTileLoader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tools\FileTileLoader\FileTileLoaderViewModel.cs" />
-    <Compile Include="Tools\FileTileLoader\MapTools\SelectTileTool.cs" />
+    <Compile Include="Tools\FileTileOpener\FileTileLoaderViewModel.cs" />
+    <Compile Include="Tools\FileTileOpener\MapTools\SelectTileTool.cs" />
     <Compile Include="Tools\Inspector\Buttons\DeleteNext.cs" />
     <Compile Include="Tools\Inspector\Buttons\OKNext.cs" />
     <Compile Include="Tools\Inspector\Buttons\OKScale.cs" />
@@ -140,7 +140,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Tools\FileTileLoader\FileTileLoader.xaml">
+    <Page Include="Tools\FileTileOpener\FileTileLoader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -255,7 +255,12 @@
     <AddInContent Include="DarkImages\GenericButtonRed32.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\FileTileLoader\" />
+    <AddInContent Include="Images\DomainAppointer\DomainAppointer_16.png" />
+    <AddInContent Include="Images\DomainAppointer\DomainAppointer_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AddInContent Include="Images\FileTileOpener\FileTileOpener_16.png" />
+    <AddInContent Include="Images\FileTileOpener\FileTileOpener_32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--
