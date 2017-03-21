@@ -128,7 +128,7 @@
     </Compile>
     <Compile Include="Tools\RasterTileLoader\RasterTileLoaderViewModel.cs" />
     <Compile Include="Utilities\Converters\EnumBooleanConverter.cs" />
-    <Compile Include="Utilities\Utilities.cs" />
+    <Compile Include="Utilities\ProUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Tools\DomainAppointer\DomainAppointerSettings.xaml">
