@@ -114,6 +114,11 @@
       <DependentUpon>DomainAppointerSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tools\DomainAppointer\DomainAppointerSettingsViewModel.cs" />
+    <Compile Include="Tools\FileTileLoader\FileTileLoader.xaml.cs">
+      <DependentUpon>FileTileLoader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\FileTileLoader\FileTileLoaderViewModel.cs" />
+    <Compile Include="Tools\FileTileLoader\MapTools\SelectTileTool.cs" />
     <Compile Include="Tools\Inspector\Buttons\DeleteNext.cs" />
     <Compile Include="Tools\Inspector\Buttons\OKNext.cs" />
     <Compile Include="Tools\Inspector\Buttons\OKScale.cs" />
@@ -132,6 +137,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Tools\DomainAppointer\DomainAppointerSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tools\FileTileLoader\FileTileLoader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -227,11 +236,26 @@
     <AddInContent Include="DarkImages\GenericButtonGreen32.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\RasterTileLoader\Open Folder.png" />
+    <Resource Include="Images\OpenFolder_20.png" />
   </ItemGroup>
   <ItemGroup>
     <AddInContent Include="Images\RasterTileLoader\RasterTileLoader_16.png" />
     <AddInContent Include="Images\RasterTileLoader\RasterTileLoader_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AddInContent Include="Images\GenericButtonRed16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AddInContent Include="Images\GenericButtonRed32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AddInContent Include="DarkImages\GenericButtonRed16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AddInContent Include="DarkImages\GenericButtonRed32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\FileTileLoader\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--

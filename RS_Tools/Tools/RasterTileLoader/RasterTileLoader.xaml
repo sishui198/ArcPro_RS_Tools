@@ -7,7 +7,7 @@
              xmlns:extensions="clr-namespace:ArcGIS.Desktop.Extensions;assembly=ArcGIS.Desktop.Extensions"
              xmlns:Converters="clr-namespace:RS_Tools.Utilities.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="300"
+             d:DesignHeight="530" d:DesignWidth="300"
              d:DataContext="{Binding Path=ui.RasterTileLoaderViewModel}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -21,7 +21,7 @@
             <Converters:EnumBooleanConverter x:Key="EnumBooleanConverter"/>
         </Grid.Resources>
         <Grid.RowDefinitions>
-            <RowDefinition Height="500"/>
+            <RowDefinition Height="530"/>
         </Grid.RowDefinitions>
         <Button Content="Get Maps" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="132" Style="{DynamicResource Esri_SimpleButton}" Command="{Binding GetMapsCommand}" Height="22"/>
         <Label Content="Maps" Margin="10,39,10,0" VerticalAlignment="Top"/>
@@ -40,16 +40,16 @@
         <TextBox Height="90" Margin="10,350,85,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding RasterWorkspace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <Button Margin="0,350,10,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="37" Style="{DynamicResource Esri_SimpleButton}" Command="{Binding GetRasterWorkspaceCommand}">
             <Button.Background>
-                <ImageBrush ImageSource="/RS_Tools;component/Images/RasterTileLoader/Open Folder.png" Stretch="Uniform"/>
+                <ImageBrush ImageSource="/RS_Tools;component/Images/OpenFolder_20.png" Stretch="Uniform"/>
             </Button.Background>
             <Button.Content>
-                <Image Source="/RS_Tools;component/Images/RasterTileLoader/Open Folder.png" Stretch="Uniform"/>
+                <Image Source="/RS_Tools;component/Images/OpenFolder_20.png" Stretch="Uniform"/>
             </Button.Content>
         </Button>
         <Label Content="Raster Loading Method" Margin="10,445,10,0" VerticalAlignment="Top"/>
         <RadioButton Content="All" HorizontalAlignment="Left" Margin="20,466,0,0" VerticalAlignment="Top" Width="35" IsChecked="{Binding Path=RasterLoadingMethod, Mode=TwoWay, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=All}"/>
         <RadioButton Content="Selected" HorizontalAlignment="Left" Margin="67,466,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.333" Width="65" IsChecked="{Binding Path=RasterLoadingMethod, Mode=TwoWay, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Selected}"/>
-        <Button Content="Load Raster" Margin="0,466,10,10" HorizontalAlignment="Right" Width="132" Style="{DynamicResource Esri_SimpleButton}" Command="{Binding LoadRasterCommand}" Height="22"/>
+        <Button Content="Load Rasters" Margin="0,466,10,10" HorizontalAlignment="Right" Width="132" Style="{DynamicResource Esri_SimpleButton}" Command="{Binding LoadRasterCommand}" Height="22"/>
 
     </Grid>
 </UserControl>
