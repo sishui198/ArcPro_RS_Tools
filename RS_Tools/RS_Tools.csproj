@@ -154,30 +154,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <AddInContent Include="Images\GenericButtonPurple16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AddInContent Include="Images\GenericButtonPurple32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AddInContent Include="DarkImages\GenericButtonPurple16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AddInContent Include="DarkImages\GenericButtonPurple32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AddInContent Include="Images\GenericButtonBlue16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AddInContent Include="Images\GenericButtonBlue32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AddInContent Include="DarkImages\GenericButtonBlue16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AddInContent Include="DarkImages\GenericButtonBlue32.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AddInContent Include="Images\Inspector\Inspector_16.png" />
     <AddInContent Include="Images\Inspector\Inspector_32.png" />
   </ItemGroup>
@@ -224,35 +200,11 @@
     <AddInContent Include="Images\DomainAppointer\assign_domain_9_32.png" />
   </ItemGroup>
   <ItemGroup>
-    <AddInContent Include="Images\GenericButtonGreen16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AddInContent Include="Images\GenericButtonGreen32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AddInContent Include="DarkImages\GenericButtonGreen16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AddInContent Include="DarkImages\GenericButtonGreen32.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\OpenFolder_20.png" />
   </ItemGroup>
   <ItemGroup>
     <AddInContent Include="Images\RasterTileLoader\RasterTileLoader_16.png" />
     <AddInContent Include="Images\RasterTileLoader\RasterTileLoader_32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AddInContent Include="Images\GenericButtonRed16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AddInContent Include="Images\GenericButtonRed32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AddInContent Include="DarkImages\GenericButtonRed16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AddInContent Include="DarkImages\GenericButtonRed32.png" />
   </ItemGroup>
   <ItemGroup>
     <AddInContent Include="Images\DomainAppointer\DomainAppointer_16.png" />
@@ -261,6 +213,29 @@
   <ItemGroup>
     <AddInContent Include="Images\FileTileOpener\FileTileOpener_16.png" />
     <AddInContent Include="Images\FileTileOpener\FileTileOpener_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_0_16.png" />
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_0_32.png" />
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_1_16.png" />
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_1_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_2_16.png" />
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_2_32.png" />
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_3_16.png" />
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_3_32.png" />
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_4_16.png" />
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_4_32.png" />
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_5_16.png" />
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_5_32.png" />
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_6_16.png" />
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_7_16.png" />
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_7_32.png" />
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_8_16.png" />
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_8_32.png" />
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_9_16.png" />
+    <AddInContent Include="DarkImages\DomainAppointer\assign_domain_9_32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--

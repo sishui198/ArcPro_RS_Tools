@@ -189,33 +189,33 @@
     <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain08" flags="Alt+Shift" key="8" />
     <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain09" flags="Alt+Shift" key="9" />
     <!-- Builtin Tool Accelerators-->
-    <insertAccelerator refID="esri_editing_ReshapeCommand" flags="Shift" key="F2" />
-    <insertAccelerator refID="esri_editing_SplitFeatureCommand" flags="Shift" key="F3" />
-    <insertAccelerator refID="esri_editing_SplitLineCommand" flags="Shift" key="F4" />
-    <insertAccelerator refID="esri_editing_SquareAndFinishCommand" flags="Shift" key="F5" />
-    <insertAccelerator refID="esri_editing_ExplodeFeatures" flags="Shift" key="F6" />
-    <insertAccelerator refID="esri_editing_MergeFeatures" flags="Shift" key="F7" />
+    <insertAccelerator refID="esri_editing_ReshapeCommand"                     flags="Shift" key="F2" />
+    <insertAccelerator refID="esri_editing_SplitFeatureCommand"                flags="Shift" key="F3" />
+    <insertAccelerator refID="esri_editing_SplitLineCommand"                   flags="Shift" key="F4" />
+    <insertAccelerator refID="esri_editing_SquareAndFinishCommand"             flags="Shift" key="F5" />
+    <insertAccelerator refID="esri_editing_ExplodeFeatures"                    flags="Shift" key="F6" />
+    <insertAccelerator refID="esri_editing_MergeFeatures"                      flags="Shift" key="F7" />
     <!--                                                                          flags="Shift" key="F8"/> Open -->
     <!--                                                                          flags="Shift" key="F9"/> Open -->
-    <insertAccelerator refID="esri_editing_EditVerticesContinue" flags="Shift" key="F10" />
-    <insertAccelerator refID="esri_mapping_clearLayerSelectionButton" flags="Shift" key="F11" />
+    <insertAccelerator refID="esri_editing_EditVerticesContinue"               flags="Shift" key="F10" />
+    <insertAccelerator refID="esri_mapping_clearLayerSelectionButton"          flags="Shift" key="F11" />
     <!--                                                                          flags="Shift" key="F12"/> Open-->
-    <insertAccelerator refID="esri_mapping_selectContext" flags="Ctrl+Shift" key="F1" />
-    <insertAccelerator refID="esri_mapping_selectByRectangleTool" flags="Ctrl+Shift" key="F2" />
-    <insertAccelerator refID="esri_editing_EndPointArcConstructor" flags="Ctrl+Shift" key="F3" />
-    <insertAccelerator refID="esri_editing_EditVerticesMove" flags="Ctrl+Shift" key="F4" />
+    <insertAccelerator refID="esri_mapping_selectContext"                      flags="Ctrl+Shift" key="F1" />
+    <insertAccelerator refID="esri_mapping_selectByRectangleTool"              flags="Ctrl+Shift" key="F2" />
+    <insertAccelerator refID="esri_editing_EndPointArcConstructor"             flags="Ctrl+Shift" key="F3" />
+    <insertAccelerator refID="esri_editing_EditVerticesMove"                   flags="Ctrl+Shift" key="F4" />
     <!-- This Refreshes the view                                                  flags="Ctrl+Shift" key="F5"/> -->
     <!-- This Has A Random Open Pane Effect                                       flags="Ctrl+Shift" key="F6"-->
-    <insertAccelerator refID="esri_editing_ModifyEdgeTool" flags="Ctrl+Shift" key="F7" />
-    <insertAccelerator refID="esri_editing_SketchCircleLineTool" flags="Ctrl+Shift" key="F8" />
-    <insertAccelerator refID="esri_editing_SketchCirclePolygonTool" flags="Ctrl+Shift" key="F9" />
-    <insertAccelerator refID="esri_editing_SketchLineTool" flags="Ctrl+Shift" key="F10" />
-    <insertAccelerator refID="esri_editing_SketchPolygonTool" flags="Ctrl+Shift" key="F11" />
-    <insertAccelerator refID="esri_editing_SketchRectangleLineTool" flags="Ctrl+Shift" key="F12" />
-    <insertAccelerator refID="esri_editing_SketchRectanglePolygonTool" flags="Alt+Shift" key="F1" />
-    <!--                                                                          flags="Alt+Shift" key="F2"/> Open-->
-    <insertAccelerator refID="esri_editing_PerpendicularContextMenuItem" flags="Alt+Shift" key="F3" />
+    <insertAccelerator refID="esri_editing_ModifyEdgeTool"                     flags="Ctrl+Shift" key="F7" />
+    <insertAccelerator refID="esri_editing_SketchCircleLineTool"               flags="Ctrl+Shift" key="F8" />
+    <insertAccelerator refID="esri_editing_SketchCirclePolygonTool"            flags="Ctrl+Shift" key="F9" />
+    <insertAccelerator refID="esri_editing_SketchLineTool"                     flags="Ctrl+Shift" key="F10" />
+    <insertAccelerator refID="esri_editing_SketchPolygonTool"                  flags="Ctrl+Shift" key="F11" />
+    <insertAccelerator refID="esri_editing_SketchRectangleLineTool"            flags="Ctrl+Shift" key="F12" />
+    <insertAccelerator refID="esri_editing_SketchRectanglePolygonTool"         flags="Alt+Shift" key="F1" />
+    <insertAccelerator refID="esri_editing_EndPointArcConstructor"             flags="Alt+Shift" key="F2"/>
+    <insertAccelerator refID="esri_editing_PerpendicularContextMenuItem"       flags="Alt+Shift" key="F3" />
     <!-- This Can Shutdown ArcGIS Pro                                             flags="Alt+Shift" key="F4"-->
-    <insertAccelerator refID="esri_mapping_exploreTool" flags="Alt+Shift" key="F5" />
+    <insertAccelerator refID="esri_mapping_exploreTool"                        flags="Alt+Shift" key="F5" />
   </accelerators>
 </ArcGIS>
