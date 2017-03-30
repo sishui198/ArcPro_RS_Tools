@@ -21,10 +21,8 @@
         </tab>
       </tabs>
       <groups>
-        
         <!--Inspecting Group-->
         <group id="RS_Tools_Group_Inspecting" caption="Inspecting" appearsOnAddInTab="false" keytip="Inspecting">
-          
           <!-- host controls within groups -->
           <button refID="RS_Tools_Tools_Inspector_InspectorSettings_ShowButton" size="large" />
           <button refID="RS_Tools_Tools_Inspector_Buttons_OKNext" size="middle" separator="true" />
@@ -32,7 +30,6 @@
           <button refID="RS_Tools_Tools_Inspector_Buttons_OKScale" size="middle" />
           <button refID="RS_Tools_Tools_Inspector_Buttons_DeleteNext" size="middle" />
         </group>
-        
         <!-- Domain Appointer Group -->
         <group id="RS_Tools_Group_DomainAppointer" caption="Domain Appointer" appearsOnAddInTab="false" keytip="DomainAppointer">
           <!-- Buttons Are Ordered For Ease Of Use -->
@@ -48,13 +45,11 @@
           <button refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain09" size="small" />
           <button refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain03" size="small" />
         </group>
-        
         <!-- Utilities Group -->
         <group id="RS_Tools_Group_Utilities" caption="Utilities" appearsOnAddInTab="false" keytip="Utilities">
           <button refID="RS_Tools_Tools_RasterTileLoader_RasterTileLoader_ShowButton" size="large" />
           <button refID="RS_Tools_Tools_FileTileOpener_FileTileOpener_ShowButton" size="large" />
         </group>
-        
       </groups>
       <controls>
         <!-- Inspector  -->
@@ -83,7 +78,6 @@
           </tooltip>
         </button>
         <!-- End Inspector -->
-        
         <!-- Domain Appointer -->
         <button id="RS_Tools_Tools_DomainAppointer_DomainAppointerSettings_ShowButton" keytip="Domain Appointer Settings" caption="Domain Appointer Settings" className="RS_Tools.Tools.DomainAppointer.DomainAppointerSettings_ShowButton" loadOnClick="true" smallImage="Images\DomainAppointer\DomainAppointer_16.png" largeImage="Images\DomainAppointer\DomainAppointer_32.png">
           <tooltip heading="Show Appointer Settings">
@@ -130,13 +124,11 @@
             Assign Domain 9<disabledText /></tooltip>
         </button>
         <!-- Domain Appointer End -->
-
         <!-- Raster Tile Loader -->
         <button id="RS_Tools_Tools_RasterTileLoader_RasterTileLoader_ShowButton" keytip="Raster Tile Loader" caption="Raster Tile Loader Settings" className="RS_Tools.Tools.RasterTileLoader.RasterTileLoader_ShowButton" loadOnClick="true" smallImage="Images\RasterTileLoader\RasterTileLoader_16.png" largeImage="Images\RasterTileLoader\RasterTileLoader_32.png">
           <tooltip heading="Show RTL Settings">Show Raster Tile Loader Settings<disabledText /></tooltip>
         </button>
         <!-- Raster Tile Loader End -->
-        
         <!-- File Tile Opener-->
         <button id="RS_Tools_Tools_FileTileOpener_FileTileOpener_ShowButton" keytip="File Tile Opener" caption="File Tile Opener Settings" className="RS_Tools.Tools.FileTileOpener.FileTileOpener_ShowButton" loadOnClick="true" smallImage="Images\FileTileOpener\FileTileOpener_16.png" largeImage="Images\FileTileOpener\FileTileOpener_32.png">
           <tooltip heading="Show FTL Settings">Show File Tile Opener Settings<disabledText /></tooltip>
@@ -145,7 +137,6 @@
           <tooltip heading="Select FTL Tool">Select File Tile Opener Tool<disabledText /></tooltip>
         </tool>
         <!-- File Tile Opener End -->
-        
       </controls>
       <dockPanes>
         <dockPane id="RS_Tools_Tools_Inspector_InspectorSettings" caption="Inspector Settings" className="RS_Tools.Tools.Inspector.InspectorSettingsViewModel" dock="group" dockWith="esri_core_contentsDockPane">
@@ -189,34 +180,38 @@
     <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain08" flags="Alt+Shift" key="8" />
     <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain09" flags="Alt+Shift" key="9" />
     <!-- Builtin Tool Accelerators-->
-    <insertAccelerator refID="esri_editing_ReshapeCommand"                     flags="Shift" key="F2" />
-    <insertAccelerator refID="esri_editing_SplitFeatureCommand"                flags="Shift" key="F3" />
-    <insertAccelerator refID="esri_editing_SplitLineCommand"                   flags="Shift" key="F4" />
-    <insertAccelerator refID="esri_editing_SquareAndFinishCommand"             flags="Shift" key="F5" />
-    <insertAccelerator refID="esri_editing_ExplodeFeatures"                    flags="Shift" key="F6" />
-    <insertAccelerator refID="esri_editing_MergeFeatures"                      flags="Shift" key="F7" />
+    <insertAccelerator refID="esri_editing_ReshapeCommand" flags="Shift" key="F2" />
+    <insertAccelerator refID="esri_editing_SplitFeatureCommand" flags="Shift" key="F3" />
+    <insertAccelerator refID="esri_editing_SplitLineCommand" flags="Shift" key="F4" />
+    <insertAccelerator refID="esri_editing_SquareAndFinishCommand" flags="Shift" key="F5" />
+    <insertAccelerator refID="esri_editing_ExplodeFeatures" flags="Shift" key="F6" />
+    <insertAccelerator refID="esri_editing_MergeFeatures" flags="Shift" key="F7" />
     <!--                                                                          flags="Shift" key="F8"/> Open -->
     <!--                                                                          flags="Shift" key="F9"/> Open -->
-    <insertAccelerator refID="esri_editing_EditVerticesContinue"               flags="Shift" key="F10" />
-    <insertAccelerator refID="esri_mapping_clearLayerSelectionButton"          flags="Shift" key="F11" />
-    <insertAccelerator refID="esri_mapping_selectByRectangleTool"              flags="Shift" key="F12" />
-    <insertAccelerator refID="esri_mapping_selectContext"                      flags="Ctrl+Shift" key="F1" />
+    <insertAccelerator refID="esri_editing_EditVerticesContinue" flags="Shift" key="F10" />
+    <insertAccelerator refID="esri_mapping_clearLayerSelectionButton" flags="Shift" key="F11" />
+    <insertAccelerator refID="esri_mapping_selectByRectangleTool" flags="Shift" key="F12" />
+    <insertAccelerator refID="esri_mapping_selectContext" flags="Ctrl+Shift" key="F1" />
     <!-- Default Implementation Set                                                 flags="Ctrl+Shift" key="F2" /-->
     <!-- Default Implementation Set                                                 flags="Ctrl+Shift" key="F3" /-->
-    <insertAccelerator refID="esri_editing_EditVerticesMove"                   flags="Ctrl+Shift" key="F4" />
+    <insertAccelerator refID="esri_editing_EditVerticesMove" flags="Ctrl+Shift" key="F4" />
     <!-- This Refreshes the view                                                  flags="Ctrl+Shift" key="F5"/> -->
     <!-- This Has A Random Open Pane Effect                                          flags="Ctrl+Shift" key="F6"-->
-    <insertAccelerator refID="esri_editing_ModifyEdgeTool"                     flags="Ctrl+Shift" key="F7" />
-    <insertAccelerator refID="esri_editing_SketchCircleLineTool"               flags="Ctrl+Shift" key="F8" />
-    <insertAccelerator refID="esri_editing_SketchCirclePolygonTool"            flags="Ctrl+Shift" key="F9" />
+    <insertAccelerator refID="esri_editing_ModifyEdgeTool" flags="Ctrl+Shift" key="F7" />
+    <insertAccelerator refID="esri_editing_SketchCircleLineTool" flags="Ctrl+Shift" key="F8" />
+    <insertAccelerator refID="esri_editing_SketchCirclePolygonTool" flags="Ctrl+Shift" key="F9" />
     <!-- Default Implementation Set                                               flags="Ctrl+Shift" key="F10" /-->
-    <insertAccelerator refID="esri_editing_SketchPolygonTool"                  flags="Ctrl+Shift" key="F11" />
-    <insertAccelerator refID="esri_editing_SketchRectangleLineTool"            flags="Ctrl+Shift" key="F12" />
-    <insertAccelerator refID="esri_editing_SketchRectanglePolygonTool"         flags="Alt+Shift" key="F1" />
-    <insertAccelerator refID="esri_editing_EndPointArcConstructor"             flags="Alt+Shift" key="F2"/>
-    <insertAccelerator refID="esri_editing_PerpendicularContextMenuItem"       flags="Alt+Shift" key="F3" />
+    <insertAccelerator refID="esri_editing_SketchPolygonTool" flags="Ctrl+Shift" key="F11" />
+    <insertAccelerator refID="esri_editing_SketchRectangleLineTool" flags="Ctrl+Shift" key="F12" />
+    <insertAccelerator refID="esri_editing_SketchRectanglePolygonTool" flags="Alt+Shift" key="F1" />
+    <insertAccelerator refID="esri_editing_EndPointArcConstructor" flags="Alt+Shift" key="F2" />
+    <insertAccelerator refID="esri_editing_PerpendicularContextMenuItem" flags="Alt+Shift" key="F3" />
     <!-- This Can Shutdown ArcGIS Pro                                                 flags="Alt+Shift" key="F4"-->
-    <insertAccelerator refID="esri_mapping_exploreTool"                        flags="Alt+Shift" key="F5" />
-    <insertAccelerator refID="esri_editing_LineConstructor" flags="Alt+Shift" key="F6"/>
+    <insertAccelerator refID="esri_mapping_exploreTool" flags="Alt+Shift" key="F5" />
+    <insertAccelerator refID="esri_editing_LineConstructor" flags="Alt+Shift" key="F6" />
   </accelerators>
+  <dropHandlers>
+    <!--specific file extensions can be set like so: dataTypes=".XLS|.xls"-->
+    <insertHandler id="RS_Tools_DropHandlers_TIF_DropHandler_TIF" className="RS_Tools.DropHandlers.TIF.DropHandler_TIF" dataTypes=".tif|.TIF" />
+  </dropHandlers>
 </ArcGIS>
