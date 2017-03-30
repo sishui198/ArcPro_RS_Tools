@@ -106,6 +106,18 @@ namespace RS_Tools.Utilities
             return null;
         }
 
+        /// <summary>
+        /// Returns File Name Extension with or without dot at the beginning
+        /// </summary>
+        /// <param name="filePathOrName"></param>
+        /// <param name="dot"></param>
+        /// <returns></returns>
+        public static string GetFileExtension(string filePathOrName, bool dot = true)
+        {
+            string extension = System.IO.Path.GetExtension(filePathOrName);
+            return dot ? extension : extension.Remove(0, 1);
+        }
+
 
     }
 }
