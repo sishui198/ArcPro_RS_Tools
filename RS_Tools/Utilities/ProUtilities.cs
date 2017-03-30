@@ -118,6 +118,24 @@ namespace RS_Tools.Utilities
             return dot ? extension : extension.Remove(0, 1);
         }
 
+        /// <summary>
+        /// Adds A List of Files to A Map Or Group
+        /// </summary>
+        /// <param name="filePaths"></param>
+        /// <param name="mapOrGroupLayer"></param>
+        public static async void AddFilesToMap(IList<String> filePaths, ILayerContainerEdit mapOrGroupLayer)
+        {
+            foreach (string filePath in filePaths)
+            {
+                await QueuedTask.Run(() =>
+                {
+                    Uri uri = new Uri(filePath);
+                    LayerFactory.CreateLayer(uri, mapOrGroupLayer).SetExpanded(false);
+                });
+
+            }
+        }
+
 
     }
 }

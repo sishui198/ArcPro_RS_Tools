@@ -1,15 +1,12 @@
-﻿using System;
+﻿using ArcGIS.Desktop.Framework.Contracts;
+using ArcGIS.Desktop.Framework.DragDrop;
+using ArcGIS.Desktop.Framework.Threading.Tasks;
+using ArcGIS.Desktop.Mapping;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using ArcGIS.Desktop.Framework;
-using ArcGIS.Desktop.Framework.Contracts;
-using ArcGIS.Desktop.Framework.DragDrop;
 using MessageBox = ArcGIS.Desktop.Framework.Dialogs.MessageBox;
-using ArcGIS.Desktop.Mapping;
-using ArcGIS.Desktop.Framework.Threading.Tasks;
 
 namespace RS_Tools.DropHandlers.TIF
 {
@@ -31,12 +28,9 @@ namespace RS_Tools.DropHandlers.TIF
                 return;
             }
 
-            int currentLayerCount = mapView.Map.GetLayersAsFlattenedList().Count;
-            MessageBox.Show(string.Format("Current Layer Count: {0}", currentLayerCount));
-
             IList<String> Files = dropInfo.Items.Select(item => item.Data.ToString()).ToList();
 
-
+            // If there is more than on file promt the user to see if they would like to put the files into a group or not
             if (Files.Count > 1)
             {
                 var result = MessageBox.Show(string.Format("Add {0} TIF Files to a group?", Files.Count), "Quick", MessageBoxButton.YesNoCancel);
@@ -46,7 +40,7 @@ namespace RS_Tools.DropHandlers.TIF
                     case MessageBoxResult.Cancel:
                         return;
                     case MessageBoxResult.No:
-                        AddFilesToMap(Files, mapView.Map);
+                        Utilities.ProUtilities.AddFilesToMap(Files, mapView.Map);
                         break;
                     case MessageBoxResult.Yes:
 
@@ -55,30 +49,20 @@ namespace RS_Tools.DropHandlers.TIF
                         {
                             group = LayerFactory.CreateGroupLayer(mapView.Map, 0, "TIF Group");
                         });
-                        AddFilesToMap(Files, group);
+                        Utilities.ProUtilities.AddFilesToMap(Files, group);
                         break;
                 }
             }
             else
             {
-                AddFilesToMap(Files, mapView.Map);
+                Utilities.ProUtilities.AddFilesToMap(Files, mapView.Map);
             }
 
+            dropInfo.Handled = true;
 
         }
 
-        private async void AddFilesToMap(IList<String> filePaths, ILayerContainerEdit mapOrGroupLayer)
-        {
-            foreach (string filePath in filePaths)
-            {
-                await QueuedTask.Run(() =>
-                {
-                    Uri uri = new Uri(filePath);
-                    LayerFactory.CreateLayer(uri, mapOrGroupLayer).SetExpanded(false);
-                });
-
-            }
-        }
+        
 
         
     }

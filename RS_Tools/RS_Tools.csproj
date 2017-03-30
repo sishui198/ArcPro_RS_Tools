@@ -238,6 +238,9 @@
     <AddInContent Include="DarkImages\DomainAppointer\assign_domain_9_16.png" />
     <AddInContent Include="DarkImages\DomainAppointer\assign_domain_9_32.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DropHandlers\SHP\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--
   PackageAction can be:
