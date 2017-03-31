@@ -2,6 +2,8 @@
 
 These are some awesome tools for ArcGIS Pro that I have created to make working in ArcGIS Pro much more efficient.
 
+### To Download the latest build (**esri.AddinX**) go to the [release page](https://github.com/ChrisStayte/ArcGISPro_RS_Tools/releases)
+
 
 ### Tools
 * [Inspector](https://github.com/ChrisStayte/ArcGISPro_RS_Tools/wiki/Inspector)
