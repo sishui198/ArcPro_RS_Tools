@@ -9,5 +9,5 @@ These are some awesome tools for ArcGIS Pro that I have created to make working 
 * [File Tile Loader](https://github.com/ChrisStayte/ArcGISPro_RS_Tools/wiki/File-Tile-Loader)
 * [Raster Tile Loader](https://github.com/ChrisStayte/ArcGISPro_RS_Tools/wiki/Raster-Tile-Loader)
 
-### Drop Handlers
-* TIF Handler
+### Extras
+* [Drag and Drops](https://github.com/ChrisStayte/ArcGISPro_RS_Tools/wiki/Drag-and-Drops)
