@@ -213,5 +213,7 @@
   <dropHandlers>
     <!--specific file extensions can be set like so: dataTypes=".XLS|.xls"-->
     <insertHandler id="RS_Tools_DropHandlers_TIF_DropHandler_TIF" className="RS_Tools.DropHandlers.TIF.DropHandler_TIF" dataTypes=".tif|.TIF" />
+    <!--specific file extensions can be set like so: dataTypes=".XLS|.xls"-->
+    <insertHandler id="RS_Tools_DropHandlers_SHP_DropHandler_SHP" className="RS_Tools.DropHandlers.SHP.DropHandler_SHP" dataTypes=".shp|.SHP" />
   </dropHandlers>
 </ArcGIS>

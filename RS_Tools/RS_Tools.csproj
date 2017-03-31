@@ -97,6 +97,7 @@
     <AddInContent Include="DarkImages\AddInDesktop32.png" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DropHandlers\SHP\DropHandler_SHP.cs" />
     <Compile Include="DropHandlers\TIF\DropHandler_TIF.cs" />
     <Compile Include="MainModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -238,9 +239,7 @@
     <AddInContent Include="DarkImages\DomainAppointer\assign_domain_9_16.png" />
     <AddInContent Include="DarkImages\DomainAppointer\assign_domain_9_32.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DropHandlers\SHP\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--
   PackageAction can be:
