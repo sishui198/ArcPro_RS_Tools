@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DropHandlers\SHP\DropHandler_SHP.cs" />
+    <Compile Include="DropHandlers\SID\DropHandler_SID.cs" />
     <Compile Include="DropHandlers\TIF\DropHandler_TIF.cs" />
     <Compile Include="MainModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
