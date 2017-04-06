@@ -49,6 +49,7 @@
         <group id="RS_Tools_Group_Utilities" caption="Utilities" appearsOnAddInTab="false" keytip="Utilities">
           <button refID="RS_Tools_Tools_RasterTileLoader_RasterTileLoader_ShowButton" size="large" />
           <button refID="RS_Tools_Tools_FileTileOpener_FileTileOpener_ShowButton" size="large" />
+          <button refID="RS_Tools_Tools_FileTileCloner_FileTileCloner_ShowButton" size="large" />
         </group>
       </groups>
       <controls>
@@ -137,6 +138,9 @@
           <tooltip heading="Select FTL Tool">Select File Tile Opener Tool<disabledText /></tooltip>
         </tool>
         <!-- File Tile Opener End -->
+        <button id="RS_Tools_Tools_FileTileCloner_FileTileCloner_ShowButton" keytip="File Tile Cloner" caption="File Tile Cloner Settings" className="RS_Tools.Tools.FileTileCloner.FileTileCloner_ShowButton" loadOnClick="true" smallImage="Images\FileTileCloner\FileTileCloner_16.png" largeImage="Images\FileTileCloner\FileTileCloner_32.png">
+          <tooltip heading="Show Dockpane">Show Dockpane<disabledText /></tooltip>
+        </button>
       </controls>
       <dockPanes>
         <dockPane id="RS_Tools_Tools_Inspector_InspectorSettings" caption="Inspector Settings" className="RS_Tools.Tools.Inspector.InspectorSettingsViewModel" dock="group" dockWith="esri_core_contentsDockPane">
@@ -150,6 +154,9 @@
         </dockPane>
         <dockPane id="RS_Tools_Tools_FileTileOpener_FileTileOpener" caption="File Tile Opener" className="RS_Tools.Tools.FileTileOpener.FileTileOpenerViewModel" dock="group" dockWith="esri_core_contentsDockPane">
           <content className="RS_Tools.Tools.FileTileOpener.FileTileOpenerView" />
+        </dockPane>
+        <dockPane id="RS_Tools_Tools_FileTileCloner_FileTileCloner" caption="File Tile Cloner" className="RS_Tools.Tools.FileTileCloner.FileTileClonerViewModel" dock="group" dockWith="esri_core_contentsDockPane">
+          <content className="RS_Tools.Tools.FileTileCloner.FileTileClonerView" />
         </dockPane>
       </dockPanes>
     </insertModule>

@@ -1,5 +1,6 @@
 ﻿using ArcGIS.Core.Data;
 using ArcGIS.Desktop.Core;
+using ArcGIS.Desktop.Core.Events;
 using ArcGIS.Desktop.Editing;
 using ArcGIS.Desktop.Framework;
 using ArcGIS.Desktop.Framework.Contracts;
@@ -41,8 +42,10 @@ namespace RS_Tools.Tools.DomainAppointer
                 BindingOperations.EnableCollectionSynchronization(_layers, _lockCollection);
                 BindingOperations.EnableCollectionSynchronization(_fields, _lockCollection);
             });
+
             LayersAddedEvent.Subscribe(OnLayerAdded, false);
             LayersRemovedEvent.Subscribe(OnLayerRemoved, false);
+            ProjectOpenedEvent.Subscribe(OnProjectOpened, false);
         }
 
         #region DockPane
@@ -155,6 +158,16 @@ namespace RS_Tools.Tools.DomainAppointer
         private void OnLayerAdded(LayerEventsArgs args)
         {
             PopulateMapLayers();
+        }
+
+        /// <summary>
+        ///  Clear out the configuration
+        /// </summary>
+        /// <param name="args"></param>
+        private void OnProjectOpened(ProjectEventArgs args)
+        {
+            Maps.Clear();
+            Layers.Clear();
         }
 
         #endregion

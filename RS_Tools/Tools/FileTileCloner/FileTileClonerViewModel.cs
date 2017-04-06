@@ -15,45 +15,47 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
-using static RS_Tools.Tools.RasterTileLoader.DataService;
+using static RS_Tools.Tools.FileTileCloner.DataService;
 using MessageBox = ArcGIS.Desktop.Framework.Dialogs.MessageBox;
 
-namespace RS_Tools.Tools.RasterTileLoader
+namespace RS_Tools.Tools.FileTileCloner
 {
-    internal class RasterTileLoaderViewModel : DockPane
+    internal class FileTileClonerViewModel : DockPane
     {
-        private const string _dockPaneID = "RS_Tools_Tools_RasterTileLoader_RasterTileLoader";
+        private const string _dockPaneID = "RS_Tools_Tools_FileTileCloner_FileTileCloner";
 
-        private string _saveFolder = String.Empty;
+        private string _saveFolder = string.Empty;
         private string _saveFile = "ExtensionList.txt";
-        private string _saveFullPath = String.Empty;
+        private string _saveFullPath = string.Empty;
 
         private readonly ObservableCollection<Map> _maps = new ObservableCollection<Map>();
         private readonly ObservableCollection<FeatureLayer> _featureLayers = new ObservableCollection<FeatureLayer>();
-        private readonly ObservableCollection<String> _fields = new ObservableCollection<string>();
-        private readonly ObservableCollection<String> _fileExtensions = new ObservableCollection<string>();
+        private readonly ObservableCollection<string> _fields = new ObservableCollection<string>();
+        private readonly ObservableCollection<string> _fileExtensions = new ObservableCollection<string>();
 
         private Map _selectedMap = null;
         private FeatureLayer _selectedFeatureLayer = null;
-        private String _selectedField = String.Empty;
-        private String _prefix = String.Empty;
-        private String _suffix = String.Empty;
-        private String _fileExtension = String.Empty;
-        private String _rasterWorkspace = String.Empty;
-        private EnumRasterLoadingMethod _rasterLoadingMethod;
-        private IDictionary<String, Boolean> _rasterList = new Dictionary<string, bool>(); // Key - File Path, Value - If The Raster Exists
+        private string _selectedField = string.Empty;
+        private string _prefix = string.Empty;
+        private string _suffix = string.Empty;
+        private string _fileExtension = string.Empty;
+        private string _fileWorkspace = string.Empty;
+        private string _destinationWorkspace = string.Empty;
+        private EnumFileCloningMethod _fileCloningMethod;
+        private IDictionary<string, Boolean> _fileList = new Dictionary<string, bool>(); // Key - File Path, Value - If The File Exists
 
         private readonly object _lockCollection = new object();
 
         // Constructor
-        protected RasterTileLoaderViewModel()
+        protected FileTileClonerViewModel()
         {
-            _saveFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"RS_Tools\Pro\RasterTileLoader");
+            _saveFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"RS_Tools\Pro\FileTileCloner");
             _saveFullPath = System.IO.Path.Combine(_saveFolder, _saveFile);
 
             _getMapsCommand = new RelayCommand(() => GetMaps(), () => true);
-            _loadRasterCommand = new RelayCommand(() => LoadRasters(), () => true);
-            _getRasterWorkspaceCommand = new RelayCommand(() => GetRasterWorkspace(), () => true);
+            _cloneFileCommand = new RelayCommand(() => LoadFiles(), () => true);
+            _getFileWorkspaceCommand = new RelayCommand(() => GetFileWorkspace(), () => true);
+            _getDestinationWorkspaceCommand = new RelayCommand(() => GetDestinationWorkspace(), () => true);
 
             Utilities.ProUtilities.RunOnUiThread(() =>
             {
@@ -68,9 +70,12 @@ namespace RS_Tools.Tools.RasterTileLoader
             ProjectOpenedEvent.Subscribe(OnProjectOpened, false);
 
             ReadFileExtensionsFromDisk();
+
         }
 
-        #region DockPane
+
+
+        #region Dockpane
 
         /// <summary>
         /// Show the DockPane.
@@ -87,7 +92,7 @@ namespace RS_Tools.Tools.RasterTileLoader
         /// <summary>
         /// Text shown near the top of the DockPane.
         /// </summary>
-        private string _heading = "Raster Tile Loader Settings";
+        private string _heading = "File Tile Cloner";
         public string Heading
         {
             get { return _heading; }
@@ -101,14 +106,14 @@ namespace RS_Tools.Tools.RasterTileLoader
 
         #region Properties
 
-        public EnumRasterLoadingMethod RasterLoadingMethod
+        public EnumFileCloningMethod FileCloningMethod
         {
-            get { return _rasterLoadingMethod; }
+            get { return _fileCloningMethod; }
             set
             {
                 Utilities.ProUtilities.RunOnUiThread(() =>
                 {
-                    SetProperty(ref _rasterLoadingMethod, value, () => RasterLoadingMethod);
+                    SetProperty(ref _fileCloningMethod, value, () => FileCloningMethod);
                 });
             }
         }
@@ -156,9 +161,9 @@ namespace RS_Tools.Tools.RasterTileLoader
             }
         }
 
-        public ObservableCollection<String> Fields => _fields;
+        public ObservableCollection<string> Fields => _fields;
 
-        public String SelectedField
+        public string SelectedField
         {
             get
             {
@@ -173,7 +178,7 @@ namespace RS_Tools.Tools.RasterTileLoader
             }
         }
 
-        public String Prefix
+        public string Prefix
         {
             get
             {
@@ -188,7 +193,7 @@ namespace RS_Tools.Tools.RasterTileLoader
             }
         }
 
-        public String Suffix
+        public string Suffix
         {
             get
             {
@@ -203,9 +208,9 @@ namespace RS_Tools.Tools.RasterTileLoader
             }
         }
 
-        public ObservableCollection<String> FileExtensions => _fileExtensions;
+        public ObservableCollection<string> FileExtensions => _fileExtensions;
 
-        public String FileExtension
+        public string FileExtension
         {
             get
             {
@@ -220,17 +225,31 @@ namespace RS_Tools.Tools.RasterTileLoader
             }
         }
 
-        public string RasterWorkspace
+        public string FileWorkspace
         {
             get
             {
-                return _rasterWorkspace;
+                return _fileWorkspace;
             }
             set
             {
                 Utilities.ProUtilities.RunOnUiThread(() =>
                 {
-                    SetProperty(ref _rasterWorkspace, value, () => RasterWorkspace);
+                    SetProperty(ref _fileWorkspace, value, () => FileWorkspace);
+                });
+            }
+        }
+
+        public string DestinationWorkspace
+        {
+            get
+            {
+                return _destinationWorkspace;
+            } set
+            {
+                Utilities.ProUtilities.RunOnUiThread(() => 
+                {
+                    SetProperty(ref _destinationWorkspace, value, () => DestinationWorkspace);
                 });
             }
         }
@@ -262,12 +281,12 @@ namespace RS_Tools.Tools.RasterTileLoader
             Maps.Clear();
             FeatureLayers.Clear();
             Fields.Clear();
-            _rasterList.Clear();
+            _fileList.Clear();
             Prefix = string.Empty;
             Suffix = string.Empty;
-            FileExtension = string.Empty;
-            RasterWorkspace = string.Empty;
-            RasterLoadingMethod = EnumRasterLoadingMethod.None;
+            FileWorkspace = string.Empty;
+            DestinationWorkspace = string.Empty;
+            FileCloningMethod = EnumFileCloningMethod.None;
         }
 
         #endregion
@@ -278,13 +297,17 @@ namespace RS_Tools.Tools.RasterTileLoader
 
         public ICommand GetMapsCommand => _getMapsCommand;
 
-        private readonly ICommand _getRasterWorkspaceCommand;
+        private readonly ICommand _getFileWorkspaceCommand;
 
-        public ICommand GetRasterWorkspaceCommand => _getRasterWorkspaceCommand;
+        public ICommand GetFileWorkspaceCommand => _getFileWorkspaceCommand;
 
-        private readonly ICommand _loadRasterCommand;
+        private readonly ICommand _getDestinationWorkspaceCommand;
 
-        public ICommand LoadRasterCommand => _loadRasterCommand;
+        public ICommand GetDestinationWorkspaceCommand => _getDestinationWorkspaceCommand;
+
+        private readonly ICommand _cloneFileCommand;
+
+        public ICommand CloneFileCommand => _cloneFileCommand;
 
         #endregion
 
@@ -311,42 +334,64 @@ namespace RS_Tools.Tools.RasterTileLoader
         }
 
         /// <summary>
-        /// Prompts the user to choose a raster workspace
+        /// Prompts the user to choose a file workspace
         /// </summary>
-        private void GetRasterWorkspace()
+        private void GetFileWorkspace()
         {
             OpenItemDialog dialog = new OpenItemDialog();
-            dialog.Title = "Select A Raster Workspace";
+            dialog.Title = "Select A File Workspace";
             dialog.MultiSelect = false;
             dialog.Filter = ItemFilters.folders;
 
-            if (Directory.Exists(_rasterWorkspace))
+            if (Directory.Exists(_fileWorkspace))
             {
-                dialog.InitialLocation = _rasterWorkspace;
+                dialog.InitialLocation = _fileWorkspace;
             }
 
 
             if (dialog.ShowDialog() == true)
             {
-                RasterWorkspace = dialog.Items.First().Path;
+                FileWorkspace = dialog.Items.First().Path;
+            }
+        }
+
+        private void GetDestinationWorkspace()
+        {
+            OpenItemDialog dialog = new OpenItemDialog();
+            dialog.Title = "Select A Destination Workspace";
+            dialog.MultiSelect = false;
+            dialog.Filter = ItemFilters.folders;
+
+            if (Directory.Exists(_destinationWorkspace))
+            {
+                dialog.InitialLocation = _destinationWorkspace;
+            }
+
+
+            if (dialog.ShowDialog() == true)
+            {
+                DestinationWorkspace = dialog.Items.First().Path;
             }
         }
 
         /// <summary>
-        /// Generates Raster List and Attempts To Load it
+        /// Generates File List and Attempts To Load it
         /// </summary>
-        private async void LoadRasters()
+        private async void LoadFiles()
         {
             if (await CheckRequirements())
             {
-                await GenerateRasterList();
-                if (ValidateRasterList())
+                await GenerateFileList();
+                if (ValidateFileList())
                 {
-                    await LoadRasterList();
+                    var maxCount = Convert.ToUInt32(_fileList.Count());
+                    var pd = new ArcGIS.Desktop.Framework.Threading.Tasks.ProgressDialog("Copying Files", "Canceled", maxCount, false);
+
+                    await CloneFiles(new CancelableProgressorSource(pd), maxCount);
                 }
                 else
                 {
-                    MessageBox.Show("Current Configuration Could Not Match Any Files in the Raster Workspace", "Something Went Wrong ...");
+                    MessageBox.Show("Current Configuration Could Not Match Any Files in the File Workspace", "Something Went Wrong ...");
                 }
             }
         }
@@ -363,19 +408,19 @@ namespace RS_Tools.Tools.RasterTileLoader
         {
             if (_selectedMap == null)
             {
-                MessageBox.Show("Select a Map in Raster Tile Loader Settings", "Oops");
+                MessageBox.Show("Select a Map in  File Tile Opener Settings", "Oops");
                 return false;
             }
 
             if (_selectedFeatureLayer == null)
             {
-                MessageBox.Show("Select a Feature Layer In Raster Tile Loader Settings", "Oops");
+                MessageBox.Show("Select a Feature Layer In File Tile Opener Settings", "Oops");
                 return false;
             }
 
-            if (String.IsNullOrEmpty(_selectedField))
+            if (string.IsNullOrEmpty(_selectedField))
             {
-                MessageBox.Show("Select A Field In Raster Tile Loader Settings", "Oops");
+                MessageBox.Show("Select A Field In File Tile Opener Settings", "Oops");
                 return false;
             }
 
@@ -402,22 +447,37 @@ namespace RS_Tools.Tools.RasterTileLoader
             }
 
             // No need to check for whitespace. I disallow this in the 'view'.
-            if (String.IsNullOrEmpty(_fileExtension))
+            if (string.IsNullOrEmpty(_fileExtension))
             {
                 MessageBox.Show("Type or Choose a File Extension");
                 return false;
             }
 
-            if (String.IsNullOrWhiteSpace(_rasterWorkspace))
+            if (string.IsNullOrWhiteSpace(_fileWorkspace))
             {
-                MessageBox.Show("Type or Choose a Raster Workspace");
+                MessageBox.Show("Type or Choose a File Workspace");
                 return false;
             }
 
-            if (_rasterLoadingMethod == EnumRasterLoadingMethod.None)
+            if (_fileCloningMethod == EnumFileCloningMethod.None)
             {
-                MessageBox.Show("Select a Raster Loading Method", "Oops");
+                MessageBox.Show("Select a File Cloner Method", "Oops");
                 return false;
+            }
+
+            if (_fileCloningMethod == EnumFileCloningMethod.Selected)
+            {
+                var result = await QueuedTask.Run(() =>
+                {
+                    var selection = _selectedFeatureLayer.GetSelection();
+                    if (selection.GetCount() <= 0)
+                    {
+                        MessageBox.Show("Select at least one feature");
+                        return false;
+                    }
+                    return true;
+                });
+                if (!result) return result;
             }
 
             return true;
@@ -433,7 +493,7 @@ namespace RS_Tools.Tools.RasterTileLoader
                 QueuedTask.Run(() =>
                 {
                     _featureLayers.Clear();
-                    foreach (var layer in _selectedMap.Layers.OfType<FeatureLayer>().Where( 
+                    foreach (var layer in _selectedMap.Layers.OfType<FeatureLayer>().Where(
                         lyr => lyr.ShapeType == ArcGIS.Core.CIM.esriGeometryType.esriGeometryPolygon))
                     {
                         _featureLayers.Add(layer);
@@ -467,7 +527,7 @@ namespace RS_Tools.Tools.RasterTileLoader
                     {
                         FieldType fieldType = field.FieldType;
                         // Change field type acceptance here
-                        if (fieldType == FieldType.SmallInteger || fieldType == FieldType.Integer  || fieldType == FieldType.String || fieldType == FieldType.Double || fieldType == FieldType.Single || fieldType == FieldType.GUID)
+                        if (fieldType == FieldType.SmallInteger || fieldType == FieldType.Integer || fieldType == FieldType.String || fieldType == FieldType.Double || fieldType == FieldType.Single || fieldType == FieldType.GUID)
                         {
                             _fields.Add(field.Name);
                         };
@@ -505,40 +565,40 @@ namespace RS_Tools.Tools.RasterTileLoader
         /// <param name="newExtension"></param>
         private void SaveFileExtensionsToDisk(string newExtension)
         {
-            if (!_fileExtensions.Contains(newExtension, StringComparer.OrdinalIgnoreCase) && !String.IsNullOrEmpty(newExtension))
+            if (!_fileExtensions.Contains(newExtension, StringComparer.OrdinalIgnoreCase) && !string.IsNullOrEmpty(newExtension))
             {
                 _fileExtensions.Add(newExtension);
             }
             using (TextWriter tw = new StreamWriter(_saveFullPath))
             {
-                tw.Write(String.Join(",", _fileExtensions.ToArray()));
+                tw.Write(string.Join(",", _fileExtensions.ToArray()));
             }
         }
 
         /// <summary>
-        /// Generates Raster List 
+        /// Generates File List 
         /// </summary>
-        private async Task GenerateRasterList()
+        private async Task GenerateFileList()
         {
-            _rasterList.Clear();
+            _fileList.Clear();
 
-            switch (_rasterLoadingMethod)
+            switch (_fileCloningMethod)
             {
                 // All Features will be Processed
-                case EnumRasterLoadingMethod.All:
+                case EnumFileCloningMethod.All:
                     await QueuedTask.Run(() =>
                     {
                         using (RowCursor cursor = _selectedFeatureLayer.GetFeatureClass().Search(null, false))
                         {
                             int fieldIndex = cursor.FindField(_selectedField);
                             while (cursor.MoveNext())
-                            {                                    
+                            {
                                 using (Row row = cursor.Current)
                                 {
-                                    String value = Convert.ToString(row.GetOriginalValue(fieldIndex));
-                                    if (!_rasterList.ContainsKey(value))
+                                    string value = Convert.ToString(row.GetOriginalValue(fieldIndex));
+                                    if (!_fileList.ContainsKey(value))
                                     {
-                                        _rasterList.Add(value, true);
+                                        _fileList.Add(value, true);
                                     }
                                 }
                             }
@@ -547,7 +607,7 @@ namespace RS_Tools.Tools.RasterTileLoader
                     break;
 
                 // Only Selected Features will be Processed
-                case EnumRasterLoadingMethod.Selected:
+                case EnumFileCloningMethod.Selected:
                     await QueuedTask.Run(() =>
                     {
                         Selection selection = _selectedFeatureLayer.GetSelection();
@@ -568,37 +628,37 @@ namespace RS_Tools.Tools.RasterTileLoader
                                     // Check if current feature is in selected feature OID set
                                     if (oidset.Contains(oid))
                                     {
-                                        String value = Convert.ToString(row.GetOriginalValue(fieldIndex));
-                                        if (!_rasterList.ContainsKey(value))
+                                        string value = Convert.ToString(row.GetOriginalValue(fieldIndex));
+                                        if (!_fileList.ContainsKey(value))
                                         {
-                                            _rasterList.Add(value, true);
+                                            _fileList.Add(value, true);
                                         }
                                     }
                                 }
                             }
                         }
-                            
+
                     });
                     break;
 
                 // Exhaust The Enumerator
-                case EnumRasterLoadingMethod.None:
+                case EnumFileCloningMethod.None:
                     break;
-        }
+            }
         }
 
         /// <summary>
-        /// Goes through each raster in the raster list and validates that it exists on the file system
+        /// Goes through each file in the file list and validates that it exists on the file system
         /// </summary>
-        private bool ValidateRasterList()
+        private bool ValidateFileList()
         {
-            IDictionary<String, Boolean> tempList = new Dictionary<String, Boolean>();
+            IDictionary<string, Boolean> tempList = new Dictionary<string, Boolean>();
 
             bool AtLeastOneFileExists = false;
 
-            foreach (KeyValuePair<String, Boolean> raster in _rasterList)
+            foreach (KeyValuePair<string, Boolean> file in _fileList)
             {
-                string filePath = _rasterWorkspace + @"\" + AddPrefixAndSuffix(raster.Key) + _fileExtension;
+                string filePath = _fileWorkspace + @"\" + AddPrefixAndSuffix(file.Key) + _fileExtension;
                 if (!File.Exists(filePath))
                 {
                     // File Does Not Exist
@@ -612,57 +672,56 @@ namespace RS_Tools.Tools.RasterTileLoader
                 }
             }
 
-            _rasterList = tempList;
+            _fileList = tempList;
             return AtLeastOneFileExists;
         }
-        
+
         /// <summary>
-        /// Attempts to load in each raster file into the selected map
+        /// Attempts topy each file the file list to the destination
         /// </summary>
         /// <returns></returns>
-        private async Task LoadRasterList()
+        private Task CloneFiles(CancelableProgressorSource cps, UInt32 maxCount)
         {
-            int couldNotLoadCount = 0;
-            bool itWorked = false;
-            GroupLayer group = null;
+            return QueuedTask.Run(() => {
+                bool itWorked = false;
 
-            await QueuedTask.Run(() =>
-            {
-                group = LayerFactory.CreateGroupLayer(_selectedMap, 0, "Rasters");
-            });
+                cps.Progressor.Max = maxCount;
 
-            foreach (KeyValuePair<String, Boolean> raster in _rasterList)
-            {
-                if (raster.Value)
+                foreach (KeyValuePair<string, Boolean> file in _fileList)
                 {
-                    if (!itWorked)
-                        SaveFileExtensionsToDisk(_fileExtension);
-
-                    itWorked = true;
-
-                    try
+                    if (cps.Progressor.CancellationToken.IsCancellationRequested)
                     {
-                        Uri uri = new Uri(raster.Key);
-                        await QueuedTask.Run(() =>
+                        cps.Progressor.Message = "Cancelling";
+                        cps.Progressor.Status = "I didn't finish...";
+                        break;
+                    }
+
+                    if (file.Value)
+                    {
+                        if (!itWorked)
+                            SaveFileExtensionsToDisk(_fileExtension);
+
+                        itWorked = true;
+
+                        try
                         {
-                            LayerFactory.CreateLayer(uri, group).SetExpanded(false);
-                        });
-                    }
-                    catch (Exception yourBest) // But you don't succeed
-                    {
-                        yourBest.ToString();
-                        // Just So We Get No Crashes ;) 
-                    }
-                } else
-                {
-                    couldNotLoadCount += 1;
-                }
-            }
+                            var sourceFile = file.Key;
+                            var destinationFile = _destinationWorkspace + @"\" + System.IO.Path.GetFileName(file.Key);
 
-            if (couldNotLoadCount > 0)
-            {
-                MessageBox.Show("There were " + Convert.ToString(couldNotLoadCount) + " raster that could not be loaded..", "Notice");
-            }
+                            System.IO.File.Copy(sourceFile, destinationFile);
+                        }
+                        catch (Exception yourBest) // But you don't succeed
+                        {
+                            yourBest.ToString();
+                            // Just So We Get No Crashes ;) 
+                        }
+                    }
+                    cps.Progressor.Value += 1;
+                    cps.Progressor.Status = string.Format("Copied {0} of {1} files", cps.Progressor.Value, maxCount);
+                    cps.Progressor.Message = "Copying Files - " + Math.Round(((Convert.ToDouble(cps.Progressor.Value) / Convert.ToDouble(cps.Progressor.Max)) * 100.0), 0) + "% Complete";
+                }
+
+            }, cps.Progressor);
         }
 
         /// <summary>
@@ -670,28 +729,29 @@ namespace RS_Tools.Tools.RasterTileLoader
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        private String AddPrefixAndSuffix(string name)
+        private string AddPrefixAndSuffix(string name)
         {
-            string filename = String.Empty;
+            string filename = string.Empty;
             string temp = string.Empty;
 
-            if (!String.IsNullOrEmpty(_prefix))
+            if (!string.IsNullOrEmpty(_prefix))
             {
                 temp = _prefix;
-                temp.Replace(" ", String.Empty);
+                temp.Replace(" ", string.Empty);
                 filename += temp;
             }
 
             filename += name;
 
-            if (!String.IsNullOrEmpty(_suffix))
+            if (!string.IsNullOrEmpty(_suffix))
             {
                 temp = _suffix;
-                temp.Replace(" ", String.Empty);
+                temp.Replace(" ", string.Empty);
                 filename += temp;
             }
             return filename;
         }
+
 
         #endregion
     }
@@ -699,11 +759,11 @@ namespace RS_Tools.Tools.RasterTileLoader
     /// <summary>
     /// Button implementation to show the DockPane.
     /// </summary>
-    internal class RasterTileLoader_ShowButton : Button
+    internal class FileTileCloner_ShowButton : Button
     {
         protected override void OnClick()
         {
-            RasterTileLoaderViewModel.Show();
+            FileTileClonerViewModel.Show();
         }
     }
 }

@@ -2,6 +2,7 @@
 using ArcGIS.Core.Geometry;
 using ArcGIS.Desktop.Catalog;
 using ArcGIS.Desktop.Core;
+using ArcGIS.Desktop.Core.Events;
 using ArcGIS.Desktop.Framework;
 using ArcGIS.Desktop.Framework.Contracts;
 using ArcGIS.Desktop.Framework.Threading.Tasks;
@@ -64,6 +65,7 @@ namespace RS_Tools.Tools.FileTileOpener
 
             LayersAddedEvent.Subscribe(OnLayersAdded, false);
             LayersRemovedEvent.Subscribe(OnLayersAdded, false);
+            ProjectOpenedEvent.Subscribe(OnProjectOpened, false);
 
             ReadFileExtensionsFromDisk();
         }
@@ -109,11 +111,17 @@ namespace RS_Tools.Tools.FileTileOpener
             }
             set
             {
-                SetProperty(ref _selectedMap, value, () => SelectedMap);
+                
                 Utilities.ProUtilities.RunOnUiThread(() =>
                 {
-                    Utilities.ProUtilities.OpenAndActivateMap(_selectedMap.URI);
-                    PopulateMapLayers();
+                    SetProperty(ref _selectedMap, value, () => SelectedMap);
+
+                    if (_selectedMap != null)
+                    {
+                        Utilities.ProUtilities.OpenAndActivateMap(_selectedMap.URI);
+                        PopulateMapLayers();
+                    }         
+                   
                 });
             }
         }
@@ -229,12 +237,28 @@ namespace RS_Tools.Tools.FileTileOpener
 
         private void OnLayersAdded(LayerEventsArgs args)
         {
-
+            PopulateMapLayers();
         }
 
         private void OnLayersRemoved(LayerEventsArgs args)
         {
+            PopulateMapLayers();
+        }
 
+        /// <summary>
+        /// Clear out the configuration
+        /// </summary>
+        /// <param name="args"></param>
+        private void OnProjectOpened(ProjectEventArgs args)
+        {
+            Maps.Clear();
+            FeatureLayers.Clear();
+            Fields.Clear();
+            Prefix = string.Empty;
+            Suffix = string.Empty;
+            FileExtension = string.Empty;
+            FileWorkspace = string.Empty;
+            
         }
 
         #endregion

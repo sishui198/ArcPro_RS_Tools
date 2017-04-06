@@ -18,6 +18,7 @@ using ArcGIS.Desktop.Mapping.Events;
 using ArcGIS.Core.Data;
 using ArcGIS.Desktop.Editing;
 using ArcGIS.Core.Geometry;
+using ArcGIS.Desktop.Core.Events;
 
 namespace RS_Tools.Tools.Inspector
 {
@@ -45,8 +46,10 @@ namespace RS_Tools.Tools.Inspector
                 BindingOperations.EnableCollectionSynchronization(_maps, _lockCollection);
                 BindingOperations.EnableCollectionSynchronization(_layers, _lockCollection);
             });
+
             LayersAddedEvent.Subscribe(OnLayerAdded, false);
             LayersRemovedEvent.Subscribe(OnLayerRemoved, false);
+            ProjectOpenedEvent.Subscribe(OnProjectOpened, false);
 
         }
 
@@ -149,6 +152,17 @@ namespace RS_Tools.Tools.Inspector
         private void OnLayerAdded(LayerEventsArgs args)
         {
             PopulateMapLayers();
+        }
+
+        /// <summary>
+        /// Clear out the configuration
+        /// </summary>
+        /// <param name="args"></param>
+        private void OnProjectOpened(ProjectEventArgs args)
+        {
+            Maps.Clear();
+            Layers.Clear();
+            
         }
 
         #endregion

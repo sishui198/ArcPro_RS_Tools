@@ -117,6 +117,11 @@
       <DependentUpon>DomainAppointerSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tools\DomainAppointer\DomainAppointerSettingsViewModel.cs" />
+    <Compile Include="Tools\FileTileCloner\DataService.cs" />
+    <Compile Include="Tools\FileTileCloner\FileTileCloner.xaml.cs">
+      <DependentUpon>FileTileCloner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\FileTileCloner\FileTileClonerViewModel.cs" />
     <Compile Include="Tools\FileTileOpener\FileTileLoader.xaml.cs">
       <DependentUpon>FileTileLoader.xaml</DependentUpon>
     </Compile>
@@ -140,6 +145,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Tools\DomainAppointer\DomainAppointerSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tools\FileTileCloner\FileTileCloner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -240,7 +249,16 @@
     <AddInContent Include="DarkImages\DomainAppointer\assign_domain_9_16.png" />
     <AddInContent Include="DarkImages\DomainAppointer\assign_domain_9_32.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AddInContent Include="DarkImages\GenericButtonPurple16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AddInContent Include="DarkImages\GenericButtonPurple32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AddInContent Include="Images\FileTileCloner\FileTileCloner_16.png" />
+    <AddInContent Include="Images\FileTileCloner\FileTileCloner_32.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--
   PackageAction can be:
