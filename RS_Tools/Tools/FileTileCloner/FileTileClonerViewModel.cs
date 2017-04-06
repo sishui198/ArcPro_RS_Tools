@@ -408,19 +408,19 @@ namespace RS_Tools.Tools.FileTileCloner
         {
             if (_selectedMap == null)
             {
-                MessageBox.Show("Select a Map in  File Tile Opener Settings", "Oops");
+                MessageBox.Show("Select a Map in File Tile Cloner Settings", "Oops");
                 return false;
             }
 
             if (_selectedFeatureLayer == null)
             {
-                MessageBox.Show("Select a Feature Layer In File Tile Opener Settings", "Oops");
+                MessageBox.Show("Select a Feature Layer In File Tile Cloner Settings", "Oops");
                 return false;
             }
 
             if (string.IsNullOrEmpty(_selectedField))
             {
-                MessageBox.Show("Select A Field In File Tile Opener Settings", "Oops");
+                MessageBox.Show("Select A Field In File Tile Cloner Settings", "Oops");
                 return false;
             }
 
@@ -677,22 +677,22 @@ namespace RS_Tools.Tools.FileTileCloner
         }
 
         /// <summary>
-        /// Attempts topy each file the file list to the destination
+        /// Attempts to copy each file the file list to the destination
         /// </summary>
         /// <returns></returns>
-        private Task CloneFiles(CancelableProgressorSource cps, UInt32 maxCount)
+        private Task CloneFiles(CancelableProgressorSource CancelableProgressorSource, UInt32 TotalNumberOfFiles)
         {
             return QueuedTask.Run(() => {
                 bool itWorked = false;
 
-                cps.Progressor.Max = maxCount;
+                CancelableProgressorSource.Progressor.Max = TotalNumberOfFiles;
 
                 foreach (KeyValuePair<string, Boolean> file in _fileList)
                 {
-                    if (cps.Progressor.CancellationToken.IsCancellationRequested)
+                    if (CancelableProgressorSource.Progressor.CancellationToken.IsCancellationRequested)
                     {
-                        cps.Progressor.Message = "Cancelling";
-                        cps.Progressor.Status = "I didn't finish...";
+                        CancelableProgressorSource.Progressor.Message = "Cancelling";
+                        CancelableProgressorSource.Progressor.Status = "I didn't finish...";
                         break;
                     }
 
@@ -716,20 +716,20 @@ namespace RS_Tools.Tools.FileTileCloner
                             // Just So We Get No Crashes ;) 
                         }
                     }
-                    cps.Progressor.Value += 1;
-                    cps.Progressor.Status = string.Format("Copied {0} of {1} files", cps.Progressor.Value, maxCount);
-                    cps.Progressor.Message = "Copying Files - " + Math.Round(((Convert.ToDouble(cps.Progressor.Value) / Convert.ToDouble(cps.Progressor.Max)) * 100.0), 0) + "% Complete";
+                    CancelableProgressorSource.Progressor.Value += 1;
+                    CancelableProgressorSource.Progressor.Status = string.Format("Copied {0} of {1} files", CancelableProgressorSource.Progressor.Value, TotalNumberOfFiles);
+                    CancelableProgressorSource.Progressor.Message = "Copying Files - " + Math.Round(((Convert.ToDouble(CancelableProgressorSource.Progressor.Value) / Convert.ToDouble(CancelableProgressorSource.Progressor.Max)) * 100.0), 0) + "% Complete";
                 }
 
-            }, cps.Progressor);
+            }, CancelableProgressorSource.Progressor);
         }
 
         /// <summary>
         /// Adds the prefix and suffix from the UI to the given string.
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="Name"></param>
         /// <returns></returns>
-        private string AddPrefixAndSuffix(string name)
+        private string AddPrefixAndSuffix(string Name)
         {
             string filename = string.Empty;
             string temp = string.Empty;
@@ -741,7 +741,7 @@ namespace RS_Tools.Tools.FileTileCloner
                 filename += temp;
             }
 
-            filename += name;
+            filename += Name;
 
             if (!string.IsNullOrEmpty(_suffix))
             {
