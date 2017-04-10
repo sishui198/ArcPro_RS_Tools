@@ -52,7 +52,7 @@
             </Button.Background>
             <Image Source="/RS_Tools;component/Images/OpenFolder_20.png" Stretch="Uniform"/>
         </Button>
-        <Label Content="File Cloning Method" Margin="10,561,10,0" VerticalAlignment="Top"/>
+        <Label Content="Tile Cloning Method" Margin="10,561,10,0" VerticalAlignment="Top"/>
         <RadioButton Content="All" HorizontalAlignment="Left" Margin="27,582,0,0" VerticalAlignment="Top" Width="35" IsChecked="{Binding Path=FileCloningMethod, Mode=TwoWay, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=All}"/>
         <RadioButton Content="Selected" HorizontalAlignment="Left" Margin="67,582,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.887,0.511" Width="65" IsChecked="{Binding Path=FileCloningMethod, Mode=TwoWay, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Selected}"/>
         <Button Content="Clone Files" Margin="0,596,10,10" HorizontalAlignment="Right" Width="132" Style="{DynamicResource Esri_SimpleButton}" Command="{Binding CloneFileCommand}" Height="22"/>
