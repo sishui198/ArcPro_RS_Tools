@@ -1,5 +1,5 @@
 ﻿<ArcGIS defaultAssembly="RS_Tools.dll" defaultNamespace="RS_Tools" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
-  <AddInInfo id="{a6619a3f-55f4-4c80-b63b-fdfa7503b505}" version="1.3" desktopVersion="1.4.7198">
+  <AddInInfo id="{a6619a3f-55f4-4c80-b63b-fdfa7503b505}" version="1.4" desktopVersion="1.4.7198">
     <Name>RS_Tools</Name>
     <Description>Tools Used by Remote Sensing to Enhance Team Productivity</Description>
     <Image>Images\AddinDesktop32.png</Image>
