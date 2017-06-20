@@ -346,7 +346,7 @@ namespace RS_Tools.Tools.Inspector
 
             bool featuresSelected = FeaturesSelected();
 
-            MessageBox.Show("Select At Least One Feature");
+            if (!featuresSelected) MessageBox.Show("Select At Least One Feature");
 
             if (featuresSelected) Update(1,  "Okay Stay");
 
