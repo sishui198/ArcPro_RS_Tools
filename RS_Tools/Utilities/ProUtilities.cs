@@ -130,7 +130,7 @@ namespace RS_Tools.Utilities
                 await QueuedTask.Run(() =>
                 {
                     Uri uri = new Uri(filePath);
-                    LayerFactory.CreateLayer(uri, mapOrGroupLayer).SetExpanded(false);
+                    LayerFactory.Instance.CreateLayer(uri, mapOrGroupLayer).SetExpanded(false);
                 });
 
             }

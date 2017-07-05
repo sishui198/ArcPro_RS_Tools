@@ -47,7 +47,7 @@ namespace RS_Tools.DropHandlers.SID
                         GroupLayer group = null;
                         await QueuedTask.Run(() =>
                         {
-                            group = LayerFactory.CreateGroupLayer(mapView.Map, 0, "SID Group");
+                            group = LayerFactory.Instance.CreateGroupLayer(mapView.Map, 0, "SID Group");
                         });
                         Utilities.ProUtilities.AddFilesToMap(Files, group);
                         break;

@@ -47,7 +47,7 @@ namespace RS_Tools.DropHandlers.SHP
                         GroupLayer group = null;
                         await QueuedTask.Run(() =>
                         {
-                            group = LayerFactory.CreateGroupLayer(mapView.Map, 0, "SHP Group");
+                            group = LayerFactory.Instance.CreateGroupLayer(mapView.Map, 0, "SHP Group");
                         });
                         Utilities.ProUtilities.AddFilesToMap(Files, group);
                         break;

@@ -628,7 +628,7 @@ namespace RS_Tools.Tools.RasterTileLoader
 
             await QueuedTask.Run(() =>
             {
-                group = LayerFactory.CreateGroupLayer(_selectedMap, 0, "Rasters");
+                group = LayerFactory.Instance.CreateGroupLayer(_selectedMap, 0, "Rasters");
             });
 
             foreach (KeyValuePair<String, Boolean> raster in _rasterList)
@@ -645,7 +645,7 @@ namespace RS_Tools.Tools.RasterTileLoader
                         Uri uri = new Uri(raster.Key);
                         await QueuedTask.Run(() =>
                         {
-                            LayerFactory.CreateLayer(uri, group).SetExpanded(false);
+                            LayerFactory.Instance.CreateLayer(uri, group).SetExpanded(false);
                         });
                     }
                     catch (Exception yourBest) // But you don't succeed

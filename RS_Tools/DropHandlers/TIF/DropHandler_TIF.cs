@@ -47,7 +47,7 @@ namespace RS_Tools.DropHandlers.TIF
                         GroupLayer group = null;
                         await QueuedTask.Run(() =>
                         {
-                            group = LayerFactory.CreateGroupLayer(mapView.Map, 0, "TIF Group");
+                            group = LayerFactory.Instance.CreateGroupLayer(mapView.Map, 0, "TIF Group");
                         });
                         Utilities.ProUtilities.AddFilesToMap(Files, group);
                         break;
