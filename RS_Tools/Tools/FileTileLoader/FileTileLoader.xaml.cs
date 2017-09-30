@@ -14,14 +14,14 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 
-namespace RS_Tools.Tools.RasterTileLoader
+namespace RS_Tools.Tools.FileTileLoader
 {
     /// <summary>
-    /// Interaction logic for RasterTileLoaderView.xaml
+    /// Interaction logic for FileTileLoaderView.xaml
     /// </summary>
-    public partial class RasterTileLoaderView : UserControl
+    public partial class FileTileLoaderView : UserControl
     {
-        public RasterTileLoaderView()
+        public FileTileLoaderView()
         {
             InitializeComponent();
         }

@@ -135,11 +135,11 @@
       <DependentUpon>InspectorSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tools\Inspector\InspectorSettingsViewModel.cs" />
-    <Compile Include="Tools\RasterTileLoader\DataService.cs" />
-    <Compile Include="Tools\RasterTileLoader\RasterTileLoader.xaml.cs">
-      <DependentUpon>RasterTileLoader.xaml</DependentUpon>
+    <Compile Include="Tools\FileTileLoader\DataService.cs" />
+    <Compile Include="Tools\FileTileLoader\FileTileLoader.xaml.cs">
+      <DependentUpon>FileTileLoader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tools\RasterTileLoader\RasterTileLoaderViewModel.cs" />
+    <Compile Include="Tools\FileTileLoader\FileTileLoaderViewModel.cs" />
     <Compile Include="Utilities\Converters\EnumBooleanConverter.cs" />
     <Compile Include="Utilities\ProUtilities.cs" />
   </ItemGroup>
@@ -160,7 +160,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Tools\RasterTileLoader\RasterTileLoader.xaml">
+    <Page Include="Tools\FileTileLoader\FileTileLoader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -215,8 +215,8 @@
     <Resource Include="Images\OpenFolder_20.png" />
   </ItemGroup>
   <ItemGroup>
-    <AddInContent Include="Images\RasterTileLoader\RasterTileLoader_16.png" />
-    <AddInContent Include="Images\RasterTileLoader\RasterTileLoader_32.png" />
+    <AddInContent Include="Images\FileTileLoader\FileTileLoader_16.png" />
+    <AddInContent Include="Images\FileTileLoader\FileTileLoader_32.png" />
   </ItemGroup>
   <ItemGroup>
     <AddInContent Include="Images\DomainAppointer\DomainAppointer_16.png" />
