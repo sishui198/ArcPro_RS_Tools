@@ -49,7 +49,7 @@ namespace RS_Tools.Tools.FileTileCloner
         // Constructor
         protected FileTileClonerViewModel()
         {
-            _saveFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"RS_Tools\Pro\FileTileCloner");
+            _saveFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"RemoteSensing\ArcPro\FileTileCloner");
             _saveFullPath = System.IO.Path.Combine(_saveFolder, _saveFile);
 
             _getMapsCommand = new RelayCommand(() => GetMaps(), () => true);

@@ -48,7 +48,7 @@ namespace RS_Tools.Tools.FileTileOpener
         // Constructor
         protected FileTileOpenerViewModel()
         {
-            _saveFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"RS_Tools\Pro\FileTileLoader");
+            _saveFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"RemoteSensing\ArcPro\FileTileLoader");
             _saveFullPath = System.IO.Path.Combine(_saveFolder, _saveFile);
 
             _getMapsCommand = new RelayCommand(() => GetMaps(), () => true);
