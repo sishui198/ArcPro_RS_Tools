@@ -494,7 +494,7 @@ namespace RS_Tools.Tools.Inspector
     {
         protected override void OnClick()
         {
-            IPlugInWrapper wrapper = FrameworkApplication.GetPlugInWrapper("RS_Tools_Tools_Inspector_Buttons_OKNext");
+            IPlugInWrapper wrapper = FrameworkApplication.GetPlugInWrapper("RS_Tools_Tools_Inspector_InspectorSettings");
             var command = wrapper as ICommand;
             InspectorSettingsViewModel.Show();
         }
