@@ -250,12 +250,6 @@
     <AddInContent Include="DarkImages\DomainAppointer\assign_domain_9_32.png" />
   </ItemGroup>
   <ItemGroup>
-    <AddInContent Include="DarkImages\GenericButtonPurple16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AddInContent Include="DarkImages\GenericButtonPurple32.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AddInContent Include="Images\FileTileCloner\FileTileCloner_16.png" />
     <AddInContent Include="Images\FileTileCloner\FileTileCloner_32.png" />
   </ItemGroup>

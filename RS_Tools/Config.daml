@@ -1,5 +1,5 @@
 ﻿<ArcGIS defaultAssembly="RS_Tools.dll" defaultNamespace="RS_Tools" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
-  <AddInInfo id="{a6619a3f-55f4-4c80-b63b-fdfa7503b505}" version="1.4.2" desktopVersion="2.0">
+  <AddInInfo id="{a6619a3f-55f4-4c80-b63b-fdfa7503b505}" version="1.4.3" desktopVersion="2.0">
     <Name>RS_Tools</Name>
     <Description>Tools Used by Remote Sensing to Enhance Team Productivity</Description>
     <Image>Images\AddinDesktop32.png</Image>
@@ -170,12 +170,12 @@
     </insertCondition>
   </conditions>
   <accelerators>
-    <!-- Inspector Accelerators -->
+    <!-- Inspector Accelerators --><!--
     <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_OKNext" flags="Ctrl+Shift" key="N" />
     <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_OKStay" flags="Ctrl+Shift" key="S" />
     <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_OKScale" flags="Ctrl+Shift" key="X" />
     <insertAccelerator refID="RS_Tools_Tools_Inspector_Buttons_DeleteNext" flags="Ctrl+Shift" key="D" />
-    <!-- Domain Appointer Accelerators -->
+    --><!-- Domain Appointer Accelerators --><!--
     <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain00" flags="Alt+Shift" key="0" />
     <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain01" flags="Alt+Shift" key="1" />
     <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain02" flags="Alt+Shift" key="2" />
@@ -186,36 +186,36 @@
     <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain07" flags="Alt+Shift" key="7" />
     <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain08" flags="Alt+Shift" key="8" />
     <insertAccelerator refID="RS_Tools_Tools_DomainAppointer_Buttons_Domain09" flags="Alt+Shift" key="9" />
-    <!-- Builtin Tool Accelerators-->
+    --><!-- Builtin Tool Accelerators--><!--
     <insertAccelerator refID="esri_editing_ReshapeCommand" flags="Shift" key="F2" />
     <insertAccelerator refID="esri_editing_SplitFeatureCommand" flags="Shift" key="F3" />
     <insertAccelerator refID="esri_editing_SplitLineCommand" flags="Shift" key="F4" />
     <insertAccelerator refID="esri_editing_SquareAndFinishCommand" flags="Shift" key="F5" />
     <insertAccelerator refID="esri_editing_ExplodeFeatures" flags="Shift" key="F6" />
     <insertAccelerator refID="esri_editing_MergeFeatures" flags="Shift" key="F7" />
-    <!--                                                                          flags="Shift" key="F8"/> Open -->
-    <!--                                                                          flags="Shift" key="F9"/> Open -->
+    --><!--                                                                          flags="Shift" key="F8"/> Open --><!--
+    --><!--                                                                          flags="Shift" key="F9"/> Open --><!--
     <insertAccelerator refID="esri_editing_EditVerticesContinue" flags="Shift" key="F10" />
     <insertAccelerator refID="esri_mapping_clearLayerSelectionButton" flags="Shift" key="F11" />
     <insertAccelerator refID="esri_mapping_selectByRectangleTool" flags="Shift" key="F12" />
     <insertAccelerator refID="esri_mapping_selectContext" flags="Ctrl+Shift" key="F1" />
-    <!-- Default Implementation Set                                                 flags="Ctrl+Shift" key="F2" /-->
-    <!-- Default Implementation Set                                                 flags="Ctrl+Shift" key="F3" /-->
+    --><!-- Default Implementation Set                                                 flags="Ctrl+Shift" key="F2" /--><!--
+    --><!-- Default Implementation Set                                                 flags="Ctrl+Shift" key="F3" /--><!--
     <insertAccelerator refID="esri_editing_EditVerticesMove" flags="Ctrl+Shift" key="F4" />
-    <!-- This Refreshes the view                                                  flags="Ctrl+Shift" key="F5"/> -->
-    <!-- This Has A Random Open Pane Effect                                          flags="Ctrl+Shift" key="F6"-->
+    --><!-- This Refreshes the view                                                  flags="Ctrl+Shift" key="F5"/> --><!--
+    --><!-- This Has A Random Open Pane Effect                                          flags="Ctrl+Shift" key="F6"--><!--
     <insertAccelerator refID="esri_editing_ModifyEdgeTool" flags="Ctrl+Shift" key="F7" />
     <insertAccelerator refID="esri_editing_SketchCircleLineTool" flags="Ctrl+Shift" key="F8" />
     <insertAccelerator refID="esri_editing_SketchCirclePolygonTool" flags="Ctrl+Shift" key="F9" />
-    <!-- Default Implementation Set                                               flags="Ctrl+Shift" key="F10" /-->
+    --><!-- Default Implementation Set                                               flags="Ctrl+Shift" key="F10" /--><!--
     <insertAccelerator refID="esri_editing_SketchPolygonTool" flags="Ctrl+Shift" key="F11" />
     <insertAccelerator refID="esri_editing_SketchRectangleLineTool" flags="Ctrl+Shift" key="F12" />
     <insertAccelerator refID="esri_editing_SketchRectanglePolygonTool" flags="Alt+Shift" key="F1" />
     <insertAccelerator refID="esri_editing_EndPointArcConstructor" flags="Alt+Shift" key="F2" />
     <insertAccelerator refID="esri_editing_PerpendicularContextMenuItem" flags="Alt+Shift" key="F3" />
-    <!-- This Can Shutdown ArcGIS Pro                                                 flags="Alt+Shift" key="F4"-->
+    --><!-- This Can Shutdown ArcGIS Pro                                                 flags="Alt+Shift" key="F4"--><!--
     <insertAccelerator refID="esri_mapping_exploreTool" flags="Alt+Shift" key="F5" />
-    <insertAccelerator refID="esri_editing_LineConstructor" flags="Alt+Shift" key="F6" />
+    <insertAccelerator refID="esri_editing_LineConstructor" flags="Alt+Shift" key="F6" />-->
   </accelerators>
   <dropHandlers>
     <!--specific file extensions can be set like so: dataTypes=".XLS|.xls"-->
